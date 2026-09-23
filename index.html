@@ -1,34 +1,87 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+   Charlie MJ PhotoStory — index.html
+  ============================================================================
+   This is the ONLY HTML file in the app. It just declares the page's
+   structure (toolbar, canvas, side panels) — all behaviour lives in
+   web/app.js, and all visual styling lives in web/style.css.
+
+   There is no build step. Open this file directly in a browser, or host
+   it on any static host (GitHub Pages, Netlify, etc.) and it works as-is.
+
+   Paths below (./web/style.css, ./web/app.js) assume this index.html sits
+   at the REPO ROOT, one level above the web/ folder. If you move
+   index.html back inside web/, change these two paths back to
+   "style.css" and "app.js" (no "./web/" prefix).
+  ============================================================================
+-->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Makes the layout behave correctly on phones/tablets, not just desktop -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Charlie MJ PhotoStory</title>
+<!-- All visual styling (colors, layout, dark theme) lives here -->
 <link rel="stylesheet" href="./web/style.css">
 </head>
 <body>
+
+<!-- ============================================================
+     #app — the whole editor UI lives inside this single wrapper.
+     app.js never creates or removes this element; it only reads/
+     writes the elements already declared below.
+     ============================================================ -->
 <div id="app">
+
+  <!-- ----------------------------------------------------------
+       TOP BAR
+       Project-level actions: start over, load/save a project file,
+       undo/redo history, and the final HD export.
+       Each button's id below is what app.js hooks its click
+       listener onto (see the "Toolbar actions" section of app.js).
+       ---------------------------------------------------------- -->
   <header class="topbar">
     <div class="brand">Charlie MJ <span>PhotoStory</span></div>
     <div class="top-actions">
+      <!-- Resets the whole canvas back to a blank 2x2 grid (after confirm()) -->
       <button id="btnNew" title="New project">New</button>
+      <!-- Opens a .cmjproj.json file picker and restores that saved project -->
       <button id="btnOpen" title="Open project file">Open</button>
+      <!-- Downloads the current project (photos + positions + text) as JSON -->
       <button id="btnSave" title="Save project file">Save</button>
+      <!-- Steps backward through the history stack -->
       <button id="btnUndo" title="Undo (Ctrl+Z)">Undo</button>
+      <!-- Steps forward through the history stack -->
       <button id="btnRedo" title="Redo (Ctrl+Y)">Redo</button>
+      <!-- Renders the full 1080x1920 canvas and downloads it as a JPG -->
       <button id="btnExport" class="primary" title="Export HD JPG">Export JPG</button>
     </div>
   </header>
 
+  <!-- ----------------------------------------------------------
+       MAIN 3-COLUMN LAYOUT: tools (left) · canvas (center) · properties (right)
+       ---------------------------------------------------------- -->
   <div class="main">
+
+    <!-- ========== LEFT PANEL: TOOLS ==========
+         Actions that apply to whichever cell/text is currently
+         selected, plus the two grid template choices. -->
     <aside class="tools">
+
+      <!-- Grid template picker: swaps state.template between "2x2" and
+           "2x3" in app.js, which resizes state.cells accordingly. -->
       <section>
         <h3>Template</h3>
         <div class="btn-row">
+          <!-- data-tmpl is read by app.js to know which template to switch to -->
           <button class="tmpl-btn" data-tmpl="2x2">2 × 2<br><small>4 photos</small></button>
           <button class="tmpl-btn" data-tmpl="2x3">2 × 3<br><small>6 photos</small></button>
         </div>
       </section>
+
+      <!-- Add a photo to the selected cell (or the first empty cell),
+           or clear the selected cell's photo entirely. -->
       <section>
         <h3>Photo</h3>
         <div class="btn-col">
@@ -36,15 +89,22 @@
           <button id="btnRemovePhoto">Remove Photo</button>
         </div>
       </section>
+
+      <!-- Per-photo transforms. Only affect the currently selected cell
+           (see selected.type === "cell" checks in app.js). -->
       <section>
         <h3>Transform</h3>
         <div class="btn-col">
           <button id="btnRotate">Rotate 90°</button>
           <button id="btnFlipH">Flip Horizontal</button>
           <button id="btnFlipV">Flip Vertical</button>
+          <!-- Restores offX/offY/zoom/rotation/flip back to defaults -->
           <button id="btnResetCell">Reset Position</button>
         </div>
       </section>
+
+      <!-- Text box tool: adds a new draggable text object to state.texts,
+           or removes whichever text box is currently selected. -->
       <section>
         <h3>Text</h3>
         <div class="btn-col">
@@ -52,27 +112,67 @@
           <button id="btnDeleteText">Delete Selected Text</button>
         </div>
       </section>
+
+      <!-- Plain instructional copy — not read by app.js, just a UI hint -->
       <p class="hint">Click an empty cell to add a photo. Drag a photo to reposition, scroll to zoom. Drag text to move it.</p>
     </aside>
 
+    <!-- ========== CENTER: CANVAS ==========
+         previewCanvas is the ONLY canvas the user actually sees and
+         interacts with (click/drag/scroll/drop are all bound to it in
+         app.js). Its pixel size (540x960) is just a fast-to-render
+         preview — always exactly half of the true export size
+         (1080x1920), so positions/zoom translate perfectly between
+         the two. -->
     <div class="canvas-area">
       <canvas id="previewCanvas" width="540" height="960"></canvas>
       <div class="canvas-label">1080 × 1920 · 9:16 · Instagram Story size</div>
     </div>
 
+    <!-- ========== RIGHT PANEL: PROPERTIES ==========
+         Empty by default. app.js's buildPropertyPanel() function fills
+         #propContent with sliders/inputs that match whatever is
+         currently selected — a photo cell (zoom/brightness/contrast/
+         saturation/grayscale) or a text box (content/font/size/color/
+         style/alignment). Nothing here is hard-coded in HTML because
+         the controls change depending on the selection. -->
     <aside class="properties" id="properties">
       <h3>Properties</h3>
       <div id="propContent" class="prop-empty">Select a photo or a text box to edit its properties.</div>
     </aside>
+
   </div>
 
+  <!-- Reassurance footer — also just static copy, no JS hook -->
   <footer class="statusbar">Charlie MJ PhotoStory — 100% offline, no account, no upload. Your photos never leave this device.</footer>
 </div>
 
+<!-- ============================================================
+     HIDDEN HELPER ELEMENTS
+     These never appear on screen (`hidden` attribute) — app.js
+     triggers them programmatically (e.g. fileInput.click()) instead
+     of the user ever seeing or clicking them directly.
+     ============================================================ -->
+
+<!-- Triggered when the user clicks an empty cell, or "+ Add / Replace
+     Photo" — accepts a single image file for whichever cell was armed
+     via `pendingCellForFile` in app.js. -->
 <input type="file" id="fileInput" accept="image/*" hidden>
+
+<!-- Triggered by the "Open" button — accepts a saved .cmjproj.json
+     project file and restores it via restoreFromSnapshot() in app.js. -->
 <input type="file" id="projectInput" accept="application/json" hidden>
+
+<!-- The REAL, full-resolution canvas used only at export time.
+     It's never shown to the user — app.js renders into it at the true
+     1080x1920 output size, then converts it to a JPG blob for download.
+     Keeping this separate from previewCanvas is what lets the on-screen
+     editor stay fast (rendering at half-size) while the exported file
+     is always full quality. -->
 <canvas id="exportCanvas" width="1080" height="1920" hidden></canvas>
 
+<!-- All interactivity — state, rendering, event listeners, undo/redo,
+     save/open, export — lives in this one file. -->
 <script src="./web/app.js"></script>
 </body>
 </html>
