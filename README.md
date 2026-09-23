@@ -2,9 +2,6 @@
 
 # Charlie MJ PhotoStory
 
-![Charlie MJ PhotoStory](./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg)
-]
-
 **[🔴 Live Demo](https://awsrmmustansarjavaid.github.io/CharlieMJ-PhotoStory/)** ·  <!-- replace with your actual GitHub Pages URL -->
 [📖 Docs](./docs/README.md) ·
 [⬇️ Download for Windows](../../releases)
