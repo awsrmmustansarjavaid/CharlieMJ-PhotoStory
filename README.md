@@ -2,11 +2,14 @@
 
 # Charlie MJ PhotoStory
 
+![Charlie MJ PhotoStory](./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg)
+]
+
 **[🔴 Live Demo](https://awsrmmustansarjavaid.github.io/CharlieMJ-PhotoStory/)** ·  <!-- replace with your actual GitHub Pages URL -->
-[📖 Docs](docs/README.md) ·
+[📖 Docs](./docs/README.md) ·
 [⬇️ Download for Windows](../../releases)
 
-<img src="assets/thumbnail.jpg" width="320" alt="Charlie MJ PhotoStory" />
+<img src="./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg" width="320" alt="Charlie MJ PhotoStory" />
 
 </div>
 
