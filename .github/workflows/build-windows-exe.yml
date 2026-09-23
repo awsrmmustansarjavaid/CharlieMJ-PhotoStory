@@ -1,0 +1,38 @@
+name: build-windows-exe
+
+# Builds the portable Windows .exe on a real Windows machine (GitHub's
+# windows-latest runner) and attaches it as a downloadable artifact.
+# This does NOT touch the web app or GitHub Pages — it only builds the
+# desktop shell in /desktop-tauri.
+
+on:
+  workflow_dispatch: {}
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install desktop dependencies
+        working-directory: desktop-tauri
+        run: npm install
+
+      - name: Build portable exe (no installer)
+        working-directory: desktop-tauri
+        run: npx tauri build --no-bundle
+
+      - name: Upload portable exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: CharlieMJ-PhotoStory-Windows-Portable
+          path: desktop-tauri/src-tauri/target/release/charliemj-photostory.exe
