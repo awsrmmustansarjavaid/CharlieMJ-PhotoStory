@@ -36,6 +36,8 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 
 ## What's new in v2
 
+<div align="center">
+
 <img src="./asset/img/CharlieMJ-PhotoStory-v2-Instagram-Post.png" width="300" alt="CharlieMJ PhotoStory" />
 
 | Area | Features |
@@ -51,6 +53,8 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 | **Export** | Rendered natively at **1080 × 1920** (or 1440 × 2560), never up-scaled. JPG (quality 50–100), PNG, WebP. Batch export with progress & success/failure counts. Folder picker + filename + status. |
 | **Projects** | Save / reopen editable `.cmjstory.json` projects, templates (9 built-in + your own), "duplicate design & clear photos", crash recovery. |
 | **Workspace** | Four interface designs — Dark Creative Studio (default, violet), Clean Minimal, Premium Gradient, Compact Portable — plus UI scale, keyboard shortcuts, undo/redo (100 steps), toast notifications, status bar. |
+
+</div>
 
 ## Architecture (modular)
 
