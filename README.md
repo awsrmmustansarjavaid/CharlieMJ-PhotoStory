@@ -14,6 +14,7 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 </div>
 
 
+
 <p align="center">
   <a href="/downloads/CharlieMJ-PhotoStory-v1/CharlieMJ-PhotoStory-Windows-Portable/charliemj-photostory.exe">
     <img src="https://img.shields.io/badge/⬇%20Download%20v1%20(Windows)-2ea44f?style=for-the-badge" alt="Download CharlieMJ PhotoStory v1 for Windows (Portable)">
@@ -21,6 +22,10 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
   &nbsp;
   <a href="/downloads/CharlieMJ-PhotoStory-v2/CharlieMJ-PhotoStory-v2-Portable/CharlieMJ-PhotoStory-v2-Portable.exe">
     <img src="https://img.shields.io/badge/⬇%20Download%20v2%20(Windows)-238636?style=for-the-badge" alt="Download CharlieMJ PhotoStory v2 for Windows (Portable)">
+  </a>
+  &nbsp;
+  <a href="https://sourceforge.net/projects/charliemj-photostory/files/latest/download">
+    <img src="https://img.shields.io/badge/⬇%20Download%20SourceForge-FF6600?style=for-the-badge&logo=sourceforge&logoColor=white" alt="Download CharlieMJ PhotoStory from SourceForge">
   </a>
   <br><br>
   <a href="https://awsrmmustansarjavaid.github.io/CharlieMJ-PhotoStory/">
