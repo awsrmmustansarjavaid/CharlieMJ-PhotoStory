@@ -1,6 +1,6 @@
 name: build-windows-exe
 
-# Builds the portable Windows .exe on a real Windows machine (GitHub's
+# Builds the portable Windows .exe (v2) on a real Windows machine (GitHub's
 # windows-latest runner) and attaches it as a downloadable artifact.
 # This does NOT touch the web app or GitHub Pages — it only builds the
 # desktop shell in /desktop-tauri.

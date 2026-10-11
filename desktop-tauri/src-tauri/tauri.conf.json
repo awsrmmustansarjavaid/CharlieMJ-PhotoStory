@@ -1,22 +1,23 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "CharlieMJ-PhotoStory",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "identifier": "com.charliemj.photostory",
   "build": {
     "frontendDist": "../../web"
   },
   "app": {
-    "withGlobalTauri": false,
+    "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Charlie MJ PhotoStory",
+        "title": "CharlieMJ PhotoStory",
         "width": 1280,
         "height": 860,
         "minWidth": 1000,
         "minHeight": 700,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "dragDropEnabled": false
       }
     ],
     "security": {
