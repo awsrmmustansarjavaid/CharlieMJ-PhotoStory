@@ -1,0 +1,8 @@
+CharlieMJ PhotoStory v2.0
+=========================
+Double-click  CharlieMJ-PhotoStory-v2.html  to run the NEW version (works offline, any modern browser).
+You should see a dark studio: left tool sidebar, centre canvas, right properties panel, "v2.0" next to the logo.
+
+If you see the OLD two-button (2x2 / 2x3) screen you are NOT running this file - you are running an old
+v1 .exe or an old copy of the repo. The .exe only becomes v2 after you rebuild it
+(GitHub -> Actions -> build-windows-exe -> Run workflow).

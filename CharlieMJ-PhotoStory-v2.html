@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CharlieMJ PhotoStory v2.0</title>
+<style>
+/* Dark Creative Studio — violet accent. Colours are variables so the light theme is just a swap. */
+:root{--bg:#20212a;--side:#2a2c38;--canvas:#15161d;--accent:#8b5cf6;--accent2:#a78bfa;--text:#f3f4f6;--text2:#a1a1b5;--line:#3a3c4d;--field:#1c1d26;--danger:#ef4444;--ui:1}
+/* 2 · Clean Minimal Studio — white / soft grey, lavender accent */
+[data-theme=minimal],[data-theme=light]{--bg:#f3f4f8;--side:#ffffff;--canvas:#e6e8f0;--accent:#8b5cf6;--accent2:#7c3aed;--text:#1f2030;--text2:#62647a;--line:#dcdfea;--field:#f6f7fb}
+[data-theme=minimal] .b.primary,[data-theme=light] .b.primary{box-shadow:none}
+/* 3 · Premium Gradient Studio — deep navy, blue→purple gradients, translucent elevated panels */
+[data-theme=premium]{--bg:#0b1030;--side:#141a44;--canvas:#080c24;--accent:#7c6cf6;--accent2:#9aa8ff;--text:#eef0ff;--text2:#9ea6d6;--line:#2a3270;--field:#0f1538}
+[data-theme=premium] body{background:radial-gradient(1200px 700px at 20% -10%,#2a1b6e 0,transparent 60%),radial-gradient(900px 600px at 100% 110%,#0b4a8f 0,transparent 55%),#0b1030}
+[data-theme=premium] .side,[data-theme=premium] .topbar,[data-theme=premium] .statusbar,[data-theme=premium] .viewbar{background:color-mix(in srgb,#141a44 78%,transparent);backdrop-filter:blur(12px)}
+[data-theme=premium] .b.primary{background:linear-gradient(90deg,#6d5df6,#2f8cff)}
+[data-theme=premium] .main{background:transparent}
+[data-theme=premium] .b,[data-theme=premium] .lcard,[data-theme=premium] .layer{transition:.18s;box-shadow:0 2px 10px #0004}
+[data-theme=premium] .b:hover:not(:disabled){transform:translateY(-1px)}
+/* 4 · Compact Portable Workspace — dark, tight toolbars, max canvas (also toggle in Settings) */
+[data-theme=compact]{--bg:#20212a;--side:#2a2c38;--canvas:#15161d}
+body.compact{font-size:.93em}body.compact .b{padding:.22rem .45rem}body.compact .body{padding:.45rem}body.compact section{margin-bottom:.6rem}body.compact .brand small,body.compact .tab small{display:none}
+body.compact .grp{padding-left:.4rem}body.compact .ctl{margin:.2rem 0}
+[data-theme=premium]{--bg:#0b1030;--side:#141a45cc;--canvas:#070a22;--accent:#6366f1;--accent2:#a78bfa;--line:#2c3578;--field:#0f1538}
+[data-theme=premium] body{background:radial-gradient(1200px 700px at 10% 0%,#1e2a78 0,transparent 60%),radial-gradient(900px 600px at 100% 100%,#4c1d95 0,transparent 55%),#0b1030}
+[data-theme=premium] .side,[data-theme=premium] .topbar,[data-theme=premium] .statusbar,[data-theme=premium] .viewbar{backdrop-filter:blur(14px);box-shadow:0 4px 24px #0006}
+[data-theme=premium] .b.primary{background:linear-gradient(90deg,#6366f1,#a855f7)}
+[data-theme=premium] .b{transition:.2s}[data-theme=premium] .lcard,[data-theme=premium] .layer{backdrop-filter:blur(6px)}
+[data-theme=light] .side{box-shadow:0 0 0 1px var(--line)}[data-theme=light]{--accent:#7c6cf0;--accent2:#6d5bd0}[data-theme=light] .b{background:#fff}
+[data-theme=compact]{--bg:#1d1e26;--side:#262833;--canvas:#13141a}
+body.compact .viewbar{padding:.15rem .5rem}body.compact .b{padding:.22rem .45rem}body.compact .body{padding:.45rem}body.compact section{margin-bottom:.6rem}body.compact .ctl{margin:.2rem 0}body.compact button.tab small{display:none}body.compact .brand small{display:none}body.compact .statusbar{padding:.1rem .6rem}
+*{box-sizing:border-box}
+html{font-size:calc(14px*var(--ui))}
+body{margin:0;height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:.8rem;padding:.5rem .8rem;background:var(--side);border-bottom:1px solid var(--line)}
+.brand{font-weight:700;font-size:1.15rem;letter-spacing:.2px;white-space:nowrap}.brand b{background:linear-gradient(90deg,#8b5cf6,#38bdf8);-webkit-background-clip:text;background-clip:text;color:transparent}.brand small{color:var(--text2);font-weight:400}
+.grp{display:flex;gap:.3rem;padding-left:.8rem;border-left:1px solid var(--line)}.sp{flex:1}
+.b,button.tab,select,input[type=text],input[type=datetime-local],textarea{font:inherit;color:var(--text)}
+.b{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:.38rem .65rem;cursor:pointer;transition:.12s;white-space:nowrap}
+.b:hover:not(:disabled){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--field))}.b:disabled{opacity:.4;cursor:default}
+.b.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;box-shadow:0 0 14px color-mix(in srgb,var(--accent) 45%,transparent)}.b.primary:hover:not(:disabled){background:var(--accent2)}
+.b.danger:hover{border-color:var(--danger);background:color-mix(in srgb,var(--danger) 20%,var(--field))}.b.big{width:100%;padding:.7rem;font-size:1.05rem;margin-top:.5rem}
+select,input[type=text],input[type=datetime-local],textarea{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:.35rem .5rem;width:100%}
+textarea{resize:vertical;margin:.3rem 0}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.main{flex:1;display:flex;min-height:0}
+.side{background:var(--side);display:flex;min-height:0}.side.left{width:19.5rem;border-right:1px solid var(--line)}.side.right{width:19rem;border-left:1px solid var(--line);flex-direction:column}
+body.compact .side.left{width:16rem}body.compact .side.right{width:15.5rem}body.compact .topbar{padding:.25rem .5rem}
+.tabs{display:flex}.tabs.vertical{flex-direction:column;border-right:1px solid var(--line);background:color-mix(in srgb,var(--side) 80%,#000)}
+button.tab{background:none;border:0;cursor:pointer;padding:.5rem .35rem;display:flex;flex-direction:column;align-items:center;gap:.1rem;color:var(--text2);border-left:3px solid transparent;font-size:.9rem}
+.tabs:not(.vertical) button.tab{flex:1;flex-direction:row;justify-content:center;border-left:0;border-bottom:3px solid transparent;padding:.6rem}
+button.tab small{font-size:.65rem}button.tab b{font-size:1.15rem;font-weight:400}button.tab:hover{color:var(--text)}
+button.tab.on{color:var(--accent2);border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.body{flex:1;overflow:auto;padding:.7rem}
+section{margin-bottom:1rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}section:last-child{border:0}
+h3{margin:.1rem 0 .55rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}h2{margin-top:0}
+.ctl{display:grid;grid-template-columns:6.2rem 1fr 2.6rem;align-items:center;gap:.4rem;margin:.35rem 0;font-size:.88rem}.ctl>span{color:var(--text2)}
+.ctl output{text-align:right;font-size:.78rem;color:var(--text2)}.ctl:not(:has(input[type=range])){grid-template-columns:6.2rem 1fr}
+.ctl.row{display:flex;justify-content:space-between}.ctl.chk{gap:.4rem;justify-content:flex-start}
+input[type=range]{width:100%;accent-color:var(--accent)}input[type=color]{width:2.6rem;height:1.7rem;border:1px solid var(--line);border-radius:6px;background:none;padding:0}input[type=checkbox]{accent-color:var(--accent)}
+.brow{display:flex;gap:.35rem;margin:.35rem 0;flex-wrap:wrap}.brow>.b{flex:1}.brow>input,.brow>.ctl{flex:2}.seg .b{padding:.3rem}
+.hint,.empty,small{color:var(--text2);font-size:.78rem;line-height:1.35}.hint{margin:.3rem 0}.hint.warn{color:#fbbf24}.empty{text-align:center;padding:1rem}
+.dims{margin:0 0 .4rem;color:var(--accent2);font-weight:600}.folder{font-size:.82rem;word-break:break-all;margin:.2rem 0}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}.thumb{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--field);border:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover;cursor:pointer;display:block}.thumb small{position:absolute;left:0;right:0;bottom:0;background:#000a;color:#fff;font-size:.6rem;padding:1px 3px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.thumb .tb{position:absolute;top:2px;right:2px;display:none;gap:1px}.thumb:hover .tb{display:flex}.tb button{background:#000b;color:#fff;border:0;border-radius:4px;font-size:.62rem;padding:2px 4px;cursor:pointer}
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem}.lcard{background:var(--field);border:1px solid var(--line);border-radius:10px;padding:.4rem;cursor:pointer;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.lcard.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 12px color-mix(in srgb,var(--accent) 40%,transparent)}.lcard b{font-size:.85rem}.lcard small{font-size:.62rem;text-align:center}
+.mini{display:grid;gap:2px;width:2.1rem;height:3.4rem}.mini i{background:var(--accent2);border-radius:2px;opacity:.85}
+.swatches{display:flex;gap:.3rem;margin:.5rem 0}.sw{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--line);cursor:pointer}.sw.on{border-color:var(--text);transform:scale(1.12)}
+.emojis{display:grid;grid-template-columns:repeat(8,1fr);gap:.2rem;margin-bottom:.4rem}.emojis button{background:var(--field);border:1px solid var(--line);border-radius:6px;font-size:1.15rem;padding:.2rem 0;cursor:pointer}.emojis button:hover{border-color:var(--accent)}
+.tpls{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}.tplrow .b:first-child{flex:5}
+.layers{display:flex;flex-direction:column;gap:.25rem}.layer{display:flex;align-items:center;gap:.15rem;padding:.25rem .35rem;background:var(--field);border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:.82rem}
+.layer.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,var(--field))}.layer.off{opacity:.5}.layer .ln{flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.li{width:1.4rem;text-align:center;color:var(--accent2)}
+.layer button{background:none;border:0;cursor:pointer;color:var(--text);font-size:.8rem;padding:.1rem .15rem;border-radius:4px}.layer button:hover{background:var(--line)}
+#stage{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--canvas);min-width:0}
+#stage.grid{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-color:var(--canvas)}
+#stage.drop{outline:3px dashed var(--accent);outline-offset:-8px}
+.canvaswrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:auto;width:100%;min-height:0}
+#preview{box-shadow:0 10px 50px #000a;background:repeating-conic-gradient(#808080 0 25%,#b0b0b0 0 50%) 0 0/20px 20px;touch-action:none;margin:auto}
+.viewbar{display:flex;align-items:center;gap:.5rem;padding:.35rem .7rem;margin-bottom:.5rem;background:var(--side);border:1px solid var(--line);border-radius:10px;font-size:.85rem}.viewbar label{display:flex;gap:.25rem;align-items:center;color:var(--text2)}.viewbar .b{padding:.15rem .55rem}
+.statusbar{display:flex;gap:1.2rem;padding:.25rem .8rem;background:var(--side);border-top:1px solid var(--line);font-size:.75rem;color:var(--text2)}.statusbar .grow{flex:1;color:var(--accent2);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#toasts{position:fixed;right:1rem;bottom:2.4rem;display:flex;flex-direction:column;gap:.45rem;z-index:50;max-width:26rem}
+.toast{display:flex;gap:.55rem;align-items:center;background:var(--side);color:var(--text);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:.55rem .75rem;box-shadow:0 8px 30px #0009;font-size:.86rem;animation:in .2s;transition:.3s}
+.toast.out{opacity:0;transform:translateX(30px)}.toast.success{border-left-color:#22c55e}.toast.error{border-left-color:var(--danger)}.toast.warn{border-left-color:#f59e0b}.toast .tm{flex:1;word-break:break-word}.toast button{background:var(--accent);color:#fff;border:0;border-radius:6px;padding:.25rem .55rem;cursor:pointer}
+@keyframes in{from{opacity:0;transform:translateY(12px)}}
+#batchProg{position:fixed;left:50%;transform:translateX(-50%);bottom:3rem;width:22rem;background:var(--side);border:1px solid var(--line);border-radius:10px;padding:.6rem;z-index:60;font-size:.8rem;text-align:center}
+#batchProg[hidden]{display:none}#batchProg i{display:block;height:8px;width:0;background:linear-gradient(90deg,#8b5cf6,#38bdf8);border-radius:4px;margin-bottom:.4rem;transition:.2s}
+dialog{background:var(--side);color:var(--text);border:1px solid var(--line);border-radius:14px;width:min(30rem,92vw);max-height:88vh;padding:1.2rem}dialog::backdrop{background:#000a}
+.keys{width:100%;font-size:.85rem;border-collapse:collapse}.keys td{padding:.2rem .3rem;border-bottom:1px solid var(--line)}kbd{background:var(--field);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:.78rem}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px}
+@media (max-width:1000px){.side.left{width:15rem}.side.right{width:15rem}}
+
+</style>
+</head>
+<body>
+<!-- Dark Creative Studio: top bar · left tool sidebar · central canvas · contextual right panel -->
+<header class="topbar">
+  <div class="brand">Charlie<b>MJ</b> PhotoStory <small id="ver">v2.0</small></div>
+  <div class="grp">
+    <button id="btnNew" class="b" title="New Story">New</button>
+    <button id="btnOpen" class="b" title="Open project (Ctrl+O)">Open</button>
+    <button id="btnSave" class="b" title="Save project (Ctrl+S)">Save</button>
+  </div>
+  <div class="grp">
+    <button id="undoBtn" class="b" title="Undo (Ctrl+Z)">↶ Undo</button>
+    <button id="redoBtn" class="b" title="Redo (Ctrl+Y)">↷ Redo</button>
+    <button id="btnResetPhoto" class="b" title="Reset selected photo">Reset photo</button>
+    <button id="btnResetLayout" class="b" title="Reset layout, spacing and photo positions">Reset layout</button>
+  </div>
+  <div class="grp"><select id="designSel" title="Design type"></select></div>
+  <div class="sp"></div>
+  <button id="btnTheme" class="b" title="Cycle interface design (Dark · Minimal · Premium · Compact)">◐</button>
+  <button id="btnSettings" class="b" title="Settings & shortcuts">⚙</button>
+  <button id="btnExport" class="b primary" title="Export (Ctrl+E)">⬇ Export</button>
+</header>
+
+<div class="main">
+  <aside class="side left"><nav id="leftTabs" class="tabs vertical"></nav><div id="leftBody" class="body"></div></aside>
+  <main id="stage" class="grid">
+    <div class="canvaswrap"><canvas id="preview"></canvas></div>
+    <div class="viewbar">
+      <button id="zoomOut" class="b" title="Zoom out">−</button><span id="zoomPct">100%</span><button id="zoomIn" class="b" title="Zoom in">＋</button>
+      <button id="zoomFit" class="b">Fit</button>
+      <label><input type="checkbox" id="safeChk"> Safe-area overlay</label>
+      <label><input type="checkbox" id="gridChk"> Grid</label>
+    </div>
+  </main>
+  <aside class="side right"><nav id="rightTabs" class="tabs"></nav><div id="rightBody" class="body"></div></aside>
+</div>
+
+<footer class="statusbar"><span id="stLayout"></span><span id="stCanvas"></span><span id="stSel"></span><span id="stStatus" class="grow">Ready</span><span>🔒 100% offline</span></footer>
+
+<div id="toasts"></div>
+<div id="batchProg" hidden><i></i><span></span></div>
+<dialog id="dlg"></dialog>
+<input type="file" id="fileInput" accept="image/*" multiple hidden>
+<input type="file" id="projectInput" accept=".json,.cmjstory" hidden>
+<input type="file" id="bgInput" accept="image/*" hidden>
+<input type="file" id="logoInput" accept="image/*" hidden>
+
+<!-- Modules (classic scripts so the app also runs from file://) -->
+<script>
+/* ============================================================================
+   core.js — namespace, event bus, state model, asset library, undo/redo
+   Everything hangs off one global `PS` so the app works from file:// (no ES
+   modules => no CORS problems) and inside the Tauri window alike.
+   ========================================================================== */
+window.PS = window.PS || {};
+(function (PS) {
+  /* ---------- tiny utilities ---------- */
+  const bus = {};
+  PS.on = (e, f) => (bus[e] = bus[e] || []).push(f);
+  PS.emit = (e, d) => (bus[e] || []).forEach(f => { try { f(d); } catch (err) { console.error(e, err); } });
+  PS.uid = () => Math.random().toString(36).slice(2, 9);
+  PS.clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  PS.clone = o => JSON.parse(JSON.stringify(o));
+  PS.isTauri = () => !!(window.__TAURI__ && window.__TAURI__.core);
+  PS.invoke = (cmd, args) => window.__TAURI__.core.invoke(cmd, args);
+
+  /* ---------- designs (canvas presets) ---------- */
+  PS.DESIGNS = {
+    story:  { name: 'Instagram Story (9:16)', w: 1080, h: 1920, safe: { top: 250, bottom: 250 } },
+    reel:   { name: 'Instagram Reel (9:16)',  w: 1080, h: 1920, safe: { top: 220, bottom: 420 } },
+    post:   { name: 'Instagram Post (4:5)',   w: 1080, h: 1350, safe: { top: 0, bottom: 0 } },
+    square: { name: 'Instagram Square (1:1)', w: 1080, h: 1080, safe: { top: 0, bottom: 0 } }
+  };
+
+  /* ---------- asset library: every image lives here, state only holds ids ---------- */
+  PS.assets = {};   // id -> {id,name,date,blob,url,img,w,h,focus:{x,y},kind:'photo'|'asset'}
+  PS.photoOrder = []; // ids of library photos in current order
+
+  /* ---------- layer factories ---------- */
+  const adj = () => ({ brightness: 100, contrast: 100, saturation: 100, warmth: 0, sharpness: 0, grayscale: 0, blur: 0 });
+  PS.newCell = slot => ({ id: PS.uid(), type: 'cell', name: 'Photo ' + (slot + 1), slot, assetId: null,
+    zoom: 1, offX: 0, offY: 0, rot: 0, flipH: false, flipV: false, fit: 'fill', locked: false, hidden: false, adj: adj() });
+  PS.textBase = () => ({ font: 'Arial', size: 72, color: '#ffffff', bold: true, italic: false, align: 'center',
+    outlineW: 0, outlineColor: '#000000', shadowBlur: 0, shadowColor: '#000000', bgOn: false, bgColor: '#000000',
+    bgAlpha: 0.5, pad: 16, opacity: 1 });
+  PS.newText = (o) => Object.assign({ id: PS.uid(), type: 'text', name: 'Text', text: 'Your text', x: 540, y: 960, rot: 0,
+    locked: false, hidden: false }, PS.textBase(), o || {});
+  PS.newStamp = (o) => Object.assign(PS.newText({ type: 'stamp', name: 'Timestamp', size: 44, bold: false,
+    shadowBlur: 8 }), { fmt: 'dddd, D MMMM YYYY • h:mm A', live: true, fixedTime: new Date().toISOString().slice(0, 16),
+    caption: '', location: '' }, o || {});
+  PS.newEmoji = (char, o) => Object.assign({ id: PS.uid(), type: 'emoji', name: 'Emoji ' + char, char, x: 540, y: 960,
+    size: 160, rot: 0, opacity: 1, locked: false, hidden: false }, o || {});
+  PS.newImageLayer = (assetId, name) => ({ id: PS.uid(), type: 'image', name: name || 'Logo', assetId, x: 900, y: 1700,
+    size: 220, rot: 0, opacity: 0.9, locked: false, hidden: false });
+
+  /* ---------- state ---------- */
+  PS.newState = function () {
+    const s = {
+      design: 'story', layout: '2x2', rows: 2, cols: 2, rowW: [], colW: [],
+      gap: 12, margin: 0, radius: 0, borderW: 0, borderColor: '#ffffff', cellFill: '#00000000',
+      bg: { type: 'solid', color: '#15161d', c1: '#8b5cf6', c2: '#1e1b4b', angle: 160, blur: 40, assetId: null },
+      layers: []
+    };
+    PS.syncCells(s);
+    return s;
+  };
+  /* make sure the state has exactly rows*cols cell layers (extras removed, new appended at bottom) */
+  PS.syncCells = function (s) {
+    const need = s.rows * s.cols;
+    const cells = s.layers.filter(l => l.type === 'cell').sort((a, b) => a.slot - b.slot);
+    cells.slice(need).forEach(c => s.layers.splice(s.layers.indexOf(c), 1));
+    for (let i = cells.length; i < need; i++) {
+      const at = s.layers.filter(l => l.type === 'cell').length;
+      s.layers.splice(at, 0, PS.newCell(i));
+    }
+    s.rowW = Array.from({ length: s.rows }, (_, i) => s.rowW[i] || 1);
+    s.colW = Array.from({ length: s.cols }, (_, i) => s.colW[i] || 1);
+  };
+  PS.state = PS.newState();
+  PS.selectedId = null;
+  PS.getLayer = (id, s) => (s || PS.state).layers.find(l => l.id === id);
+  PS.selected = () => PS.getLayer(PS.selectedId);
+  PS.cells = s => (s || PS.state).layers.filter(l => l.type === 'cell').sort((a, b) => a.slot - b.slot);
+
+  /* ---------- undo / redo (snapshots of state JSON; images are not duplicated) ---------- */
+  let hist = [], hi = -1;
+  PS.commit = function (label) {
+    hist = hist.slice(0, hi + 1);
+    hist.push(JSON.stringify(PS.state));
+    if (hist.length > 100) hist.shift();
+    hi = hist.length - 1;
+    PS.emit('committed', label);
+    PS.touch();
+  };
+  PS.resetHistory = () => { hist = []; hi = -1; PS.commit(); };
+  PS.canUndo = () => hi > 0; PS.canRedo = () => hi < hist.length - 1;
+  function restore(i) {
+    PS.state = JSON.parse(hist[i]); hi = i;
+    if (!PS.getLayer(PS.selectedId)) PS.selectedId = null;
+    PS.emit('panels'); PS.touch(); PS.emit('committed');
+  }
+  PS.undo = () => { if (PS.canUndo()) { restore(hi - 1); PS.notify('Undo', 'info'); } };
+  PS.redo = () => { if (PS.canRedo()) { restore(hi + 1); PS.notify('Redo', 'info'); } };
+
+  /* touch = "something changed, repaint" (cheap; no history entry) */
+  PS.touch = () => PS.emit('repaint');
+
+  PS.select = id => { PS.selectedId = id; PS.emit('select'); PS.touch(); };
+
+  /* ---------- image loading ---------- */
+  PS.loadImage = (blob) => new Promise((res, rej) => {
+    const url = URL.createObjectURL(blob), img = new Image();
+    img.onload = () => res({ url, img }); img.onerror = () => rej(new Error('Could not decode image'));
+    img.src = url;
+  });
+  /* rough "important area": centroid of edge energy on a 48px thumbnail */
+  function focusOf(img) {
+    const k = 48 / Math.max(img.naturalWidth, img.naturalHeight), w = Math.max(2, Math.round(img.naturalWidth * k)), h = Math.max(2, Math.round(img.naturalHeight * k));
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0, w, h);
+    const d = x.getImageData(0, 0, w, h).data; let sx = 0, sy = 0, sw = 0;
+    const g = (i, j) => { const p = (j * w + i) * 4; return d[p] * .3 + d[p + 1] * .59 + d[p + 2] * .11; };
+    for (let j = 1; j < h - 1; j++) for (let i = 1; i < w - 1; i++) {
+      const e = Math.abs(g(i + 1, j) - g(i - 1, j)) + Math.abs(g(i, j + 1) - g(i, j - 1));
+      const cw = 1 - 0.4 * (Math.abs(i / w - .5) + Math.abs(j / h - .5)); // slight centre bias
+      sx += i * e * cw; sy += j * e * cw; sw += e * cw;
+    }
+    return sw > 0 ? { x: sx / sw / w, y: sy / sw / h } : { x: .5, y: .5 };
+  }
+  /* read EXIF DateTimeOriginal from a JPEG (returns ms timestamp or null) */
+  PS.exifDate = async function (file) {
+    try {
+      const v = new DataView(await file.slice(0, 131072).arrayBuffer());
+      if (v.getUint16(0) !== 0xFFD8) return null;
+      let o = 2;
+      while (o < v.byteLength - 4) {
+        const m = v.getUint16(o), len = v.getUint16(o + 2);
+        if (m === 0xFFE1 && v.getUint32(o + 4) === 0x45786966) {            // "Exif"
+          const t = o + 10, le = v.getUint16(t) === 0x4949, g16 = a => v.getUint16(a, le), g32 = a => v.getUint32(a, le);
+          const str = (a, n) => { let r = ''; for (let i = 0; i < n - 1; i++) r += String.fromCharCode(v.getUint8(a + i)); return r; };
+          const find = (ifd, tag) => { const n = g16(t + ifd); for (let i = 0; i < n; i++) { const e = t + ifd + 2 + i * 12; if (g16(e) === tag) return e; } return null; };
+          const ptr = find(g32(t + 4), 0x8769); if (ptr === null) return null;
+          const ent = find(g32(ptr + 8), 0x9003) ; if (ent === null) return null;
+          const d = str(t + g32(ent + 8), g32(ent + 4)).match(/(\d+):(\d+):(\d+) (\d+):(\d+):(\d+)/);
+          return d ? new Date(+d[1], d[2] - 1, +d[3], +d[4], +d[5], +d[6]).getTime() : null;
+        }
+        if ((m & 0xFF00) !== 0xFF00) return null; o += 2 + len;
+      }
+    } catch (e) {}
+    return null;
+  };
+  PS.addAsset = async function (blob, name, date, kind, id) {
+    const { url, img } = await PS.loadImage(blob);
+    const a = { id: id || PS.uid(), name: name || 'image', date: date || Date.now(), blob, url, img,
+      w: img.naturalWidth, h: img.naturalHeight, kind: kind || 'photo' };
+    a.focus = focusOf(img); PS.assets[a.id] = a;
+    if (a.kind === 'photo') PS.photoOrder.push(a.id);
+    return a;
+  };
+  PS.dataUrlToBlob = u => { const [h, b] = u.split(','), m = /:(.*?);/.exec(h)[1], bin = atob(b), n = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) n[i] = bin.charCodeAt(i); return new Blob([n], { type: m }); };
+  PS.blobToDataUrl = b => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(b); });
+})(window.PS);
+
+</script>
+<script>
+/* notify.js — Notification Service: toasts (bottom-right) + status-bar text */
+(function (PS) {
+  PS.notify = function (msg, type, opts) {
+    opts = opts || {};
+    const host = document.getElementById('toasts'); if (!host) return;
+    const t = document.createElement('div'); t.className = 'toast ' + (type || 'info');
+    const icon = { success: '✔', error: '✖', info: 'ℹ', progress: '⏳', warn: '⚠' }[type || 'info'];
+    t.innerHTML = '<span class="ti">' + icon + '</span><span class="tm"></span>';
+    t.querySelector('.tm').textContent = msg;
+    (opts.actions || []).forEach(a => { const b = document.createElement('button'); b.textContent = a.label;
+      b.onclick = () => { a.fn(); t.remove(); }; t.appendChild(b); });
+    host.appendChild(t);
+    while (host.children.length > 5) host.firstChild.remove();
+    const life = opts.sticky ? 0 : (type === 'error' ? 7000 : 3200);
+    if (life) setTimeout(() => t.classList.add('out'), life), setTimeout(() => t.remove(), life + 300);
+    PS.status(msg);
+    return t;
+  };
+  PS.status = function (msg) { const s = document.getElementById('stStatus'); if (s) s.textContent = msg; };
+  window.addEventListener('error', e => PS.notify('Unexpected error: ' + (e.message || e), 'error'));
+  window.addEventListener('unhandledrejection', e => PS.notify('Error: ' + ((e.reason && e.reason.message) || e.reason), 'error'));
+})(window.PS);
+
+</script>
+<script>
+/* layouts.js — Layout Engine: turns (layout, gap, margin, weights) into cell rectangles */
+(function (PS) {
+  // naming is ROWS × COLUMNS: 2×1 = two panels stacked vertically, 1×2 = two side by side
+  PS.LAYOUTS = {
+    '1x1': { label: 'Single', rows: 1, cols: 1 },
+    '2x1': { label: '2 stacked', rows: 2, cols: 1 },
+    '3x1': { label: '3 stacked', rows: 3, cols: 1 },
+    '1x2': { label: '2 side by side', rows: 1, cols: 2 },
+    '1x3': { label: '3 side by side', rows: 1, cols: 3 },
+    '2x2': { label: '2 × 2', rows: 2, cols: 2 },
+    '3x2': { label: '3 × 2', rows: 3, cols: 2 },
+    '2x3': { label: '2 × 3', rows: 2, cols: 3 },
+    '3x3': { label: '3 × 3', rows: 3, cols: 3 },
+    'custom': { label: 'Custom', rows: 0, cols: 0 }
+  };
+  PS.setLayout = function (id, rows, cols) {
+    const s = PS.state, L = PS.LAYOUTS[id];
+    s.layout = id; s.rows = id === 'custom' ? PS.clamp(rows || s.rows, 1, 8) : L.rows; s.cols = id === 'custom' ? PS.clamp(cols || s.cols, 1, 8) : L.cols;
+    PS.syncCells(s);
+    if (PS.selectedId && !PS.getLayer(PS.selectedId)) PS.selectedId = null;
+  };
+  /* returns array of {x,y,w,h} in design units, row-major */
+  PS.cellRects = function (s) {
+    const D = PS.DESIGNS[s.design], m = s.margin, g = s.gap;
+    const W = D.w - 2 * m - g * (s.cols - 1), H = D.h - 2 * m - g * (s.rows - 1);
+    const sw = s.colW.reduce((a, b) => a + b, 0), sh = s.rowW.reduce((a, b) => a + b, 0);
+    const out = []; let y = m;
+    for (let r = 0; r < s.rows; r++) {
+      const h = H * s.rowW[r] / sh; let x = m;
+      for (let c = 0; c < s.cols; c++) { const w = W * s.colW[c] / sw; out.push({ x, y, w, h }); x += w + g; }
+      y += h + g;
+    }
+    return out;
+  };
+  /* distribute photos over empty (or all) cells with focus-aware placement */
+  PS.placePhoto = function (cell, asset, rect) {
+    cell.assetId = asset.id; cell.zoom = 1; cell.rot = 0; cell.flipH = cell.flipV = false;
+    cell.offX = cell.offY = 0; cell.fit = 'fill';
+    if (rect && asset.focus) {
+      const s = Math.max(rect.w / asset.w, rect.h / asset.h), ox = asset.w * s - rect.w, oy = asset.h * s - rect.h;
+      // shift so the focal point sits as close to the frame centre as the overflow allows
+      cell.offX = ox > 0 ? PS.clamp((0.5 - asset.focus.x) * asset.w * s, -ox / 2, ox / 2) / rect.w : 0;
+      cell.offY = oy > 0 ? PS.clamp((0.5 - asset.focus.y) * asset.h * s, -oy / 2, oy / 2) / rect.h : 0;
+    }
+  };
+  PS.autoFill = function (s, ids, onlyEmpty) {
+    const rects = PS.cellRects(s), cells = PS.cells(s); let n = 0, k = 0;
+    cells.forEach((c, i) => {
+      if (onlyEmpty && c.assetId) return;
+      if (k >= ids.length) return;
+      PS.placePhoto(c, PS.assets[ids[k++]], rects[i]); n++;
+    });
+    return n;
+  };
+  PS.sortedPhotoIds = function (mode) {
+    const ids = PS.photoOrder.slice(), A = PS.assets;
+    if (mode === 'name') ids.sort((a, b) => A[a].name.localeCompare(A[b].name, undefined, { numeric: true }));
+    if (mode === 'date') ids.sort((a, b) => A[a].date - A[b].date);
+    return ids;
+  };
+})(window.PS);
+
+</script>
+<script>
+/* filters.js — photo enhancement: CSS-filter string, preset looks, sharpen kernel */
+(function (PS) {
+  PS.filterString = function (a, scale) {
+    const f = [];
+    if (a.brightness !== 100) f.push('brightness(' + a.brightness + '%)');
+    if (a.contrast !== 100) f.push('contrast(' + a.contrast + '%)');
+    if (a.saturation !== 100) f.push('saturate(' + a.saturation + '%)');
+    if (a.grayscale) f.push('grayscale(' + a.grayscale + '%)');
+    if (a.blur) f.push('blur(' + (a.blur * scale).toFixed(2) + 'px)');
+    return f.length ? f.join(' ') : 'none';
+  };
+  PS.PRESETS = {
+    None:    { brightness: 100, contrast: 100, saturation: 100, warmth: 0, sharpness: 0, grayscale: 0, blur: 0 },
+    'B&W':   { brightness: 105, contrast: 115, saturation: 100, warmth: 0, sharpness: 20, grayscale: 100, blur: 0 },
+    Vivid:   { brightness: 105, contrast: 112, saturation: 140, warmth: 5, sharpness: 25, grayscale: 0, blur: 0 },
+    Warm:    { brightness: 105, contrast: 105, saturation: 110, warmth: 45, sharpness: 0, grayscale: 0, blur: 0 },
+    Cool:    { brightness: 100, contrast: 105, saturation: 105, warmth: -45, sharpness: 0, grayscale: 0, blur: 0 },
+    Fade:    { brightness: 112, contrast: 82, saturation: 85, warmth: 10, sharpness: 0, grayscale: 0, blur: 0 },
+    Vintage: { brightness: 100, contrast: 90, saturation: 75, warmth: 55, sharpness: 0, grayscale: 15, blur: 0 },
+    Drama:   { brightness: 92, contrast: 140, saturation: 115, warmth: -8, sharpness: 40, grayscale: 0, blur: 0 },
+    Dreamy:  { brightness: 110, contrast: 92, saturation: 115, warmth: 15, sharpness: 0, grayscale: 0, blur: 1.5 }
+  };
+  /* 3x3 unsharp-style convolution, amount 0-100 */
+  PS.sharpen = function (ctx, w, h, amount) {
+    const a = amount / 100 * 1.2, src = ctx.getImageData(0, 0, w, h), d = src.data, o = new Uint8ClampedArray(d);
+    const k = [0, -a, 0, -a, 1 + 4 * a, -a, 0, -a, 0];
+    for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+      const p = (y * w + x) * 4;
+      for (let c = 0; c < 3; c++) {
+        o[p + c] = k[4] * d[p + c] + k[1] * d[p - w * 4 + c] + k[3] * d[p - 4 + c] + k[5] * d[p + 4 + c] + k[7] * d[p + w * 4 + c];
+      }
+    }
+    src.data.set(o); ctx.putImageData(src, 0, 0);
+  };
+})(window.PS);
+
+</script>
+<script>
+/* stamp.js — smart timestamp: date/time formatting with custom patterns */
+(function (PS) {
+  const MON = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAY = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const p2 = n => String(n).padStart(2, '0');
+  /* tokens: YYYY YY MMMM MMM MM M dddd ddd DD D HH H hh h mm ss A a ; wrap literals in [brackets] */
+  PS.formatDate = function (d, fmt) {
+    const h12 = d.getHours() % 12 || 12;
+    const T = { YYYY: d.getFullYear(), YY: String(d.getFullYear()).slice(2), MMMM: MON[d.getMonth()], MMM: MON[d.getMonth()].slice(0, 3),
+      MM: p2(d.getMonth() + 1), M: d.getMonth() + 1, dddd: DAY[d.getDay()], ddd: DAY[d.getDay()].slice(0, 3), DD: p2(d.getDate()),
+      D: d.getDate(), HH: p2(d.getHours()), H: d.getHours(), hh: p2(h12), h: h12, mm: p2(d.getMinutes()), ss: p2(d.getSeconds()),
+      A: d.getHours() < 12 ? 'AM' : 'PM', a: d.getHours() < 12 ? 'am' : 'pm' };
+    return String(fmt).replace(/\[([^\]]*)\]|YYYY|YY|MMMM|MMM|MM|M|dddd|ddd|DD|D|HH|H|hh|h|mm|ss|A|a/g, (m, lit) => lit !== undefined ? lit : T[m]);
+  };
+  PS.STAMP_FORMATS = ['dddd, D MMMM YYYY • h:mm A', 'DD/MM/YYYY HH:mm', 'YYYY-MM-DD', 'D MMM YYYY', 'MMMM D, YYYY', 'ddd • HH:mm', 'h:mm A', 'HH:mm:ss', 'dddd', 'D MMM YYYY • dddd'];
+  PS.stampText = function (l) {
+    const d = l.live ? new Date() : (l.fixedTime ? new Date(l.fixedTime) : new Date());
+    let t = PS.formatDate(isNaN(d) ? new Date() : d, l.fmt || 'DD/MM/YYYY HH:mm');
+    if (l.location) t += '\n📍 ' + l.location;
+    if (l.caption) t += '\n' + l.caption;
+    return t;
+  };
+})(window.PS);
+
+</script>
+<script>
+/* render.js — Rendering Engine. One function draws everything, at ANY resolution:
+   preview calls it with the on-screen canvas width, export with the real target
+   width (e.g. 1080 or 1440) — so exports are rendered natively, never up-scaled. */
+(function (PS) {
+  const EMOJI_FONT = '"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif';
+  PS.bounds = {};
+
+  function rr(c, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2)); c.beginPath();
+    c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath();
+  }
+  function cover(c, img, x, y, w, h) {
+    const s = Math.max(w / img.naturalWidth, h / img.naturalHeight), iw = img.naturalWidth * s, ih = img.naturalHeight * s;
+    c.drawImage(img, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih);
+  }
+  function star(c, cx, cy, R, rot) {
+    c.beginPath();
+    for (let i = 0; i < 10; i++) { const r = i % 2 ? R * 0.382 : R, a = rot + i * Math.PI / 5 - Math.PI / 2; c.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
+    c.closePath(); c.fill();
+  }
+
+  /* ---------- background ---------- */
+  function drawBackground(c, s, D, sc) {
+    const b = s.bg;
+    if (b.type === 'transparent') return;
+    c.save();
+    if (b.type === 'gradient') {
+      const a = (b.angle - 90) * Math.PI / 180, dx = Math.cos(a), dy = Math.sin(a), L = (Math.abs(D.w * dx) + Math.abs(D.h * dy)) / 2;
+      const g = c.createLinearGradient(D.w / 2 - dx * L, D.h / 2 - dy * L, D.w / 2 + dx * L, D.h / 2 + dy * L);
+      g.addColorStop(0, b.c1); g.addColorStop(1, b.c2); c.fillStyle = g; c.fillRect(0, 0, D.w, D.h);
+    } else if (b.type === 'blur' || b.type === 'image') {
+      c.fillStyle = b.color; c.fillRect(0, 0, D.w, D.h);
+      let a = b.type === 'image' ? PS.assets[b.assetId] : null;
+      if (!a) { const cell = PS.cells(s).find(x => x.assetId && PS.assets[x.assetId]); a = cell && PS.assets[cell.assetId]; }
+      if (a) {
+        if (b.type === 'blur') {
+          c.filter = 'blur(' + (b.blur * sc).toFixed(1) + 'px)'; c.translate(D.w / 2, D.h / 2); c.scale(1.25, 1.25); c.translate(-D.w / 2, -D.h / 2);
+          cover(c, a.img, 0, 0, D.w, D.h); c.filter = 'none'; c.setTransform(sc, 0, 0, sc, 0, 0);
+          c.fillStyle = 'rgba(0,0,0,.22)'; c.fillRect(0, 0, D.w, D.h);
+        } else cover(c, a.img, 0, 0, D.w, D.h);
+      }
+    } else { c.fillStyle = b.color; c.fillRect(0, 0, D.w, D.h); }
+    c.restore();
+  }
+
+  /* ---------- photo cells ---------- */
+  function paintPhoto(c, a, w, h, cell, sc) {
+    const ad = cell.adj, base = (cell.fit === 'fit' ? Math.min : Math.max)(w / a.w, h / a.h) * cell.zoom;
+    c.save(); c.filter = PS.filterString(ad, sc);
+    c.translate(w / 2 + cell.offX * w, h / 2 + cell.offY * h); c.rotate(cell.rot * Math.PI / 180);
+    c.scale(cell.flipH ? -1 : 1, cell.flipV ? -1 : 1);
+    c.drawImage(a.img, -a.w * base / 2, -a.h * base / 2, a.w * base, a.h * base); c.restore();
+  }
+  function drawPhoto(c, a, w, h, cell, sc) {
+    const ad = cell.adj;
+    if (ad.sharpness > 0 || ad.warmth !== 0) {
+      const pw = Math.max(1, Math.ceil(w * sc)), ph = Math.max(1, Math.ceil(h * sc));
+      const off = document.createElement('canvas'); off.width = pw; off.height = ph;
+      const o = off.getContext('2d', { willReadFrequently: true }); o.imageSmoothingQuality = 'high';
+      o.scale(pw / w, ph / h); paintPhoto(o, a, w, h, cell, sc); o.setTransform(1, 0, 0, 1, 0, 0);
+      if (ad.sharpness > 0) PS.sharpen(o, pw, ph, ad.sharpness);
+      if (ad.warmth !== 0) { o.globalCompositeOperation = 'source-atop';
+        o.fillStyle = ad.warmth > 0 ? 'rgba(255,150,40,' + (ad.warmth / 100 * 0.3) + ')' : 'rgba(40,120,255,' + (-ad.warmth / 100 * 0.3) + ')';
+        o.fillRect(0, 0, pw, ph); }
+      c.drawImage(off, 0, 0, w, h);
+    } else paintPhoto(c, a, w, h, cell, sc);
+  }
+  function drawCell(c, cell, r, s, o) {
+    const a = PS.assets[cell.assetId], rad = s.radius;
+    c.save(); rr(c, r.x, r.y, r.w, r.h, rad); c.clip();
+    if (a) {
+      if (s.cellFill && s.cellFill.length === 9 && s.cellFill.slice(7) !== '00') { c.fillStyle = s.cellFill; c.fillRect(r.x, r.y, r.w, r.h); }
+      c.translate(r.x, r.y); drawPhoto(c, a, r.w, r.h, cell, o.sc);
+    } else if (o.preview) {
+      c.fillStyle = '#2a2c38'; c.fillRect(r.x, r.y, r.w, r.h);
+      c.fillStyle = '#6b6d85'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.font = '600 ' + Math.min(r.w, r.h) * 0.12 + 'px Arial'; c.fillText('+', r.x + r.w / 2, r.y + r.h / 2 - r.h * 0.05);
+      c.font = Math.min(r.w, r.h) * 0.06 + 'px Arial'; c.fillText(cell.name, r.x + r.w / 2, r.y + r.h / 2 + r.h * 0.07);
+    }
+    c.restore();
+    if (s.borderW > 0 && (a || o.preview)) {
+      c.save(); c.strokeStyle = s.borderColor; c.lineWidth = s.borderW;
+      rr(c, r.x + s.borderW / 2, r.y + s.borderW / 2, r.w - s.borderW, r.h - s.borderW, Math.max(0, rad - s.borderW / 2)); c.stroke(); c.restore();
+    }
+    PS.bounds[cell.id] = { cx: r.x + r.w / 2, cy: r.y + r.h / 2, w: r.w, h: r.h, rot: 0 };
+  }
+
+  /* ---------- text / stamp ---------- */
+  function hexA(hex, a) { const n = parseInt(hex.slice(1, 7), 16); return 'rgba(' + (n >> 16) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  function drawText(c, l, o) {
+    const str = l.type === 'stamp' ? PS.stampText(l) : l.text, lines = String(str).split('\n'), lh = l.size * 1.2;
+    c.save(); c.font = (l.italic ? 'italic ' : '') + (l.bold ? 'bold ' : '') + l.size + 'px "' + l.font + '", ' + EMOJI_FONT;
+    const w = Math.max(10, ...lines.map(t => c.measureText(t).width)), h = lh * lines.length, pad = l.bgOn ? l.pad : 0;
+    c.globalAlpha = l.opacity; c.translate(l.x, l.y); c.rotate(l.rot * Math.PI / 180);
+    if (l.bgOn) { c.fillStyle = hexA(l.bgColor, l.bgAlpha); rr(c, -w / 2 - pad, -h / 2 - pad, w + 2 * pad, h + 2 * pad, pad * 0.6); c.fill(); }
+    c.textBaseline = 'middle'; c.textAlign = l.align; c.lineJoin = 'round';
+    const x = l.align === 'left' ? -w / 2 : l.align === 'right' ? w / 2 : 0;
+    lines.forEach((t, i) => {
+      const y = -h / 2 + lh * (i + 0.5);
+      if (l.shadowBlur > 0) { c.shadowColor = l.shadowColor; c.shadowBlur = l.shadowBlur * o.sc; c.shadowOffsetY = l.shadowBlur * 0.35 * o.sc; }
+      if (l.outlineW > 0) { c.strokeStyle = l.outlineColor; c.lineWidth = l.outlineW * 2; c.strokeText(t, x, y); c.shadowColor = 'transparent'; }
+      c.fillStyle = l.color; c.fillText(t, x, y); c.shadowColor = 'transparent';
+    });
+    c.restore();
+    PS.bounds[l.id] = { cx: l.x, cy: l.y, w: w + 2 * pad + l.outlineW * 2, h: h + 2 * pad, rot: l.rot };
+  }
+
+  /* ---------- emoji (flags are drawn as vectors: Windows has no flag glyphs) ---------- */
+  function drawFlag(c, ch, S) {
+    const w = S * 1.5, h = S; c.save(); rr(c, -w / 2, -h / 2, w, h, S * 0.06); c.clip();
+    if (ch === '🇵🇰') {
+      c.fillStyle = '#01411c'; c.fillRect(-w / 2, -h / 2, w, h); c.fillStyle = '#fff'; c.fillRect(-w / 2, -h / 2, w / 4, h);
+      const cx = w / 8, r = h * 0.3; c.beginPath(); c.arc(cx, 0, r, 0, 7); c.fill();
+      c.fillStyle = '#01411c'; c.beginPath(); c.arc(cx + r * 0.32, -r * 0.1, r * 0.82, 0, 7); c.fill();
+      c.fillStyle = '#fff'; star(c, cx + r * 0.62, -r * 0.42, r * 0.34, 0.5);
+    } else {
+      c.fillStyle = '#e30a17'; c.fillRect(-w / 2, -h / 2, w, h); c.fillStyle = '#fff';
+      const cx = -w * 0.12, r = h * 0.25; c.beginPath(); c.arc(cx, 0, r, 0, 7); c.fill();
+      c.fillStyle = '#e30a17'; c.beginPath(); c.arc(cx + r * 0.26, 0, r * 0.8, 0, 7); c.fill();
+      c.fillStyle = '#fff'; star(c, cx + r * 1.45, 0, r * 0.4, Math.PI / 2 * 0.0 + 1.2566);
+    }
+    c.restore();
+    c.save(); c.strokeStyle = 'rgba(0,0,0,.25)'; c.lineWidth = Math.max(1, S * 0.01); rr(c, -w / 2, -h / 2, w, h, S * 0.06); c.stroke(); c.restore();
+    return { w, h };
+  }
+  function drawEmoji(c, l, o) {
+    c.save(); c.globalAlpha = l.opacity; c.translate(l.x, l.y); c.rotate(l.rot * Math.PI / 180);
+    let w, h;
+    if (l.char === '🇵🇰' || l.char === '🇹🇷') ({ w, h } = drawFlag(c, l.char, l.size));
+    else { c.font = l.size + 'px ' + EMOJI_FONT; c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.fillText(l.char, 0, l.size * 0.05); w = Math.max(l.size, c.measureText(l.char).width); h = l.size * 1.15; }
+    c.restore(); PS.bounds[l.id] = { cx: l.x, cy: l.y, w, h, rot: l.rot };
+  }
+  function drawImageLayer(c, l) {
+    const a = PS.assets[l.assetId]; if (!a) return;
+    const w = l.size, h = l.size * a.h / a.w;
+    c.save(); c.globalAlpha = l.opacity; c.translate(l.x, l.y); c.rotate(l.rot * Math.PI / 180);
+    c.drawImage(a.img, -w / 2, -h / 2, w, h); c.restore(); PS.bounds[l.id] = { cx: l.x, cy: l.y, w, h, rot: l.rot };
+  }
+
+  /* ---------- overlays (preview only) ---------- */
+  function drawOverlays(c, s, D, o) {
+    const inv = 1 / o.sc, sel = PS.getLayer(o.selectedId, s);
+    if (o.safe && (D.safe.top || D.safe.bottom)) {
+      c.save(); c.fillStyle = 'rgba(239,68,68,.20)'; c.fillRect(0, 0, D.w, D.safe.top); c.fillRect(0, D.h - D.safe.bottom, D.w, D.safe.bottom);
+      c.strokeStyle = 'rgba(239,68,68,.9)'; c.lineWidth = 2 * inv; c.setLineDash([12 * inv, 8 * inv]);
+      c.beginPath(); c.moveTo(0, D.safe.top); c.lineTo(D.w, D.safe.top); c.moveTo(0, D.h - D.safe.bottom); c.lineTo(D.w, D.h - D.safe.bottom); c.stroke();
+      c.setLineDash([]); c.fillStyle = '#fff'; c.font = 'bold ' + 13 * inv + 'px Arial'; c.textAlign = 'center';
+      c.fillText('Instagram UI area (keep text out)', D.w / 2, D.safe.top - 10 * inv); c.fillText('Instagram UI area (keep text out)', D.w / 2, D.h - D.safe.bottom + 22 * inv); c.restore();
+    }
+    (o.guides || []).forEach(g => { c.save(); c.strokeStyle = '#f472b6'; c.lineWidth = inv; c.beginPath();
+      if (g.x !== undefined) { c.moveTo(g.x, 0); c.lineTo(g.x, D.h); } else { c.moveTo(0, g.y); c.lineTo(D.w, g.y); } c.stroke(); c.restore(); });
+    const b = sel && PS.bounds[sel.id];
+    if (b && !sel.hidden) {
+      c.save(); c.translate(b.cx, b.cy); c.rotate(b.rot * Math.PI / 180);
+      c.strokeStyle = '#8b5cf6'; c.lineWidth = 3 * inv; c.setLineDash([10 * inv, 6 * inv]); c.strokeRect(-b.w / 2, -b.h / 2, b.w, b.h); c.setLineDash([]);
+      if (sel.type !== 'cell' && !sel.locked) { const hs = 16 * inv; c.fillStyle = '#8b5cf6'; c.fillRect(b.w / 2 - hs / 2, b.h / 2 - hs / 2, hs, hs); }
+      c.restore();
+    }
+  }
+
+  /* ---------- main entry ---------- */
+  PS.render = function (ctx, outW, s, o) {
+    o = o || {}; const D = PS.DESIGNS[s.design], sc = outW / D.w; o.sc = sc;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, outW, outW * D.h / D.w);
+    ctx.setTransform(sc, 0, 0, sc, 0, 0); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    drawBackground(ctx, s, D, sc);
+    const rects = PS.cellRects(s);
+    s.layers.forEach(l => {
+      if (l.hidden) { delete PS.bounds[l.id]; return; }
+      if (l.type === 'cell') drawCell(ctx, l, rects[l.slot], s, o);
+      else if (l.type === 'text' || l.type === 'stamp') drawText(ctx, l, o);
+      else if (l.type === 'emoji') drawEmoji(ctx, l, o);
+      else if (l.type === 'image') drawImageLayer(ctx, l);
+    });
+    if (o.preview) drawOverlays(ctx, s, D, o);
+    ctx.restore();
+  };
+})(window.PS);
+
+</script>
+<script>
+/* settings.js — preferences. Portable: in the desktop app they live in settings.json
+   next to the .exe; in a browser they fall back to localStorage. Also a tiny IndexedDB helper. */
+(function (PS) {
+  const DEFAULTS = { theme: 'dark', uiScale: 1, compact: false, exportDir: '', format: 'jpg', quality: 92, resolution: 1,
+    baseName: 'CharlieMJ-Story', jpgBg: '#ffffff', safeArea: false, showGrid: true, sortMode: 'manual' };
+  PS.THEMES = { dark: 'Dark Creative Studio', light: 'Clean Minimal Studio', premium: 'Premium Gradient Studio', compact: 'Compact Portable Workspace' };
+  PS.settings = Object.assign({}, DEFAULTS);
+  PS.loadSettings = async function () {
+    let raw = null;
+    try { raw = PS.isTauri() ? await PS.invoke('read_settings') : localStorage.getItem('cmj-settings'); } catch (e) {}
+    try { if (raw) Object.assign(PS.settings, JSON.parse(raw)); } catch (e) {}
+    PS.applySettings();
+  };
+  PS.saveSettings = function () {
+    const j = JSON.stringify(PS.settings);
+    try { localStorage.setItem('cmj-settings', j); } catch (e) {}
+    if (PS.isTauri()) PS.invoke('write_settings', { json: j }).catch(() => {});
+  };
+  PS.applySettings = function () {
+    const s = PS.settings, r = document.documentElement;
+    if (s.theme === 'light') s.theme = 'minimal';
+    r.dataset.theme = s.theme; r.style.setProperty('--ui', s.uiScale); document.body.classList.toggle('compact', !!s.compact || s.theme === 'compact');
+    PS.emit('settings');
+  };
+
+  /* IndexedDB key/value (used for crash recovery) */
+  let dbp;
+  const db = () => dbp || (dbp = new Promise((res, rej) => { const q = indexedDB.open('cmj-photostory', 1);
+    q.onupgradeneeded = () => q.result.createObjectStore('kv'); q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }));
+  PS.idb = {
+    async get(k) { const d = await db(); return new Promise((res, rej) => { const r = d.transaction('kv').objectStore('kv').get(k); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); },
+    async set(k, v) { const d = await db(); return new Promise((res, rej) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, k); t.oncomplete = res; t.onerror = () => rej(t.error); }); },
+    async del(k) { const d = await db(); return new Promise(res => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').delete(k); t.oncomplete = res; }); }
+  };
+
+  /* ---- crash recovery: debounce-save state + image blobs ---- */
+  let timer;
+  PS.scheduleRecovery = function () {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      try { const assets = Object.values(PS.assets).map(a => ({ id: a.id, name: a.name, date: a.date, kind: a.kind, blob: a.blob }));
+        await PS.idb.set('recovery', { state: PS.state, assets, order: PS.photoOrder, at: Date.now() }); } catch (e) { /* quota etc: ignore silently */ }
+    }, 1500);
+  };
+  PS.checkRecovery = async function () {
+    let rec; try { rec = await PS.idb.get('recovery'); } catch (e) { return; }
+    if (!rec || !rec.state || !rec.state.layers.some(l => l.type !== 'cell' || l.assetId)) return;
+    PS.notify('Unfinished work found from ' + new Date(rec.at).toLocaleString(), 'warn', { sticky: true, actions: [
+      { label: 'Restore', fn: async () => { try { await PS.restoreRecord(rec.state, rec.assets, rec.order); PS.notify('Recovered your unfinished Story', 'success'); } catch (e) { PS.notify('Recovery failed: ' + e.message, 'error'); } } },
+      { label: 'Discard', fn: () => PS.idb.del('recovery') }] });
+  };
+  /* shared by recovery + project open */
+  PS.restoreRecord = async function (state, assets, order) {
+    Object.values(PS.assets).forEach(a => URL.revokeObjectURL(a.url)); PS.assets = {}; PS.photoOrder = [];
+    for (const a of assets) await PS.addAsset(a.blob, a.name, a.date, a.kind, a.id);
+    if (order) PS.photoOrder = order.filter(id => PS.assets[id]);
+    PS.state = state; PS.syncCells(PS.state); PS.selectedId = null; PS.resetHistory(); PS.emit('panels');
+  };
+})(window.PS);
+
+</script>
+<script>
+/* services.js — Export Service, Project Service, Template Service, Palette */
+(function (PS) {
+  const p2 = n => String(n).padStart(2, '0');
+  const stamp = () => { const d = new Date(); return d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + '-' + p2(d.getHours()) + p2(d.getMinutes()) + p2(d.getSeconds()); };
+  const MIME = { jpg: 'image/jpeg', png: 'image/png', webp: 'image/webp' };
+  PS.lastSaved = null; // {path|name}
+
+  /* ---------------- file output ---------------- */
+  PS.chooseFolder = async function () {
+    try {
+      if (PS.isTauri()) { const p = await PS.invoke('pick_folder'); if (p) { PS.settings.exportDir = p; PS.saveSettings(); PS.emit('settings'); PS.notify('Export folder: ' + p, 'success'); } return; }
+      if (window.showDirectoryPicker) { PS.dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        PS.settings.exportDir = PS.dirHandle.name; PS.saveSettings(); PS.emit('settings'); PS.notify('Export folder: ' + PS.dirHandle.name, 'success'); return; }
+      PS.notify('Folder picking is not supported in this browser — files go to your Downloads folder.', 'warn');
+    } catch (e) { if (e.name !== 'AbortError') PS.notify('Could not choose folder: ' + e.message, 'error'); }
+  };
+  /* returns a human-readable location */
+  PS.saveBlob = async function (blob, filename) {
+    if (PS.isTauri() && PS.settings.exportDir) {
+      const b64 = (await PS.blobToDataUrl(blob)).split(',')[1];
+      const path = await PS.invoke('save_file', { folder: PS.settings.exportDir, filename, dataBase64: b64 });
+      PS.lastSaved = { path }; return path;
+    }
+    if (PS.dirHandle) {
+      const fh = await PS.dirHandle.getFileHandle(filename, { create: true }), w = await fh.createWritable(); await w.write(blob); await w.close();
+      PS.lastSaved = { name: filename }; return PS.dirHandle.name + '/' + filename;
+    }
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 2000); PS.lastSaved = { name: filename }; return 'Downloads/' + filename;
+  };
+  PS.revealLast = function () {
+    if (PS.isTauri() && PS.lastSaved && PS.lastSaved.path) PS.invoke('reveal_file', { path: PS.lastSaved.path }).catch(e => PS.notify('Cannot open location: ' + e, 'error'));
+    else PS.notify('Opening a folder is only available in the Windows desktop app. In the browser, check your chosen folder or Downloads.', 'info');
+  };
+
+  /* ---------------- export ---------------- */
+  PS.exportSize = (s) => { const D = PS.DESIGNS[(s || PS.state).design], k = PS.settings.resolution; return { w: Math.round(D.w * k), h: Math.round(D.h * k) }; };
+  PS.renderToBlob = function (s) {
+    const { w, h } = PS.exportSize(s), fmt = PS.settings.format;
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = h; const c = cv.getContext('2d');
+    if (fmt === 'jpg') { c.fillStyle = PS.settings.jpgBg; c.fillRect(0, 0, w, h); }  // JPEG has no alpha: paint a backdrop first
+    PS.render(c, w, s, { preview: false });
+    return new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error('This browser cannot encode ' + fmt.toUpperCase())), MIME[fmt], PS.settings.quality / 100));
+  };
+  PS.exportCurrent = async function () {
+    try {
+      PS.notify('Export started…', 'progress'); await new Promise(r => setTimeout(r, 30));
+      const blob = await PS.renderToBlob(PS.state), fmt = PS.settings.format, name = (PS.settings.baseName || 'Story') + '-' + stamp() + '.' + fmt;
+      if (fmt === 'webp' && blob.type !== MIME.webp) PS.notify('WebP is not supported here; a ' + blob.type + ' file was produced instead.', 'warn');
+      const where = await PS.saveBlob(blob, name), sz = PS.exportSize();
+      PS.notify('Export complete: ' + name + ' (' + sz.w + '×' + sz.h + ', ' + (blob.size / 1048576).toFixed(2) + ' MB) → ' + where, 'success',
+        { actions: PS.isTauri() ? [{ label: 'Open location', fn: PS.revealLast }] : [] });
+      PS.emit('exported', name);
+    } catch (e) { PS.notify('Export failed: ' + e.message, 'error'); }
+  };
+  /* batch: split the (sorted) photo library into Stories using the current layout/design as template */
+  PS.batchExport = async function () {
+    const ids = PS.sortedPhotoIds(PS.settings.sortMode), per = PS.state.rows * PS.state.cols;
+    if (!ids.length) return PS.notify('Add photos to the library first.', 'warn');
+    const chunks = []; for (let i = 0; i < ids.length; i += per) chunks.push(ids.slice(i, i + per));
+    const prog = document.getElementById('batchProg'), bar = prog.querySelector('i'), txt = prog.querySelector('span'); prog.hidden = false;
+    let ok = 0, fail = 0; PS.notify('Batch export started: ' + chunks.length + ' Stories', 'progress');
+    for (let i = 0; i < chunks.length; i++) {
+      try {
+        const s = PS.clone(PS.state); PS.cells(s).forEach(c => { c.assetId = null; }); PS.autoFill(s, chunks[i], false);
+        const blob = await PS.renderToBlob(s), name = (PS.settings.baseName || 'Story') + '-' + stamp() + '-' + String(i + 1).padStart(3, '0') + '.' + PS.settings.format;
+        await PS.saveBlob(blob, name); ok++;
+      } catch (e) { fail++; console.error(e); }
+      bar.style.width = ((i + 1) / chunks.length * 100) + '%'; txt.textContent = (i + 1) + '/' + chunks.length + ' • ✔ ' + ok + ' • ✖ ' + fail;
+      await new Promise(r => setTimeout(r, 20));
+    }
+    setTimeout(() => { prog.hidden = true; }, 3500);
+    PS.notify('Batch finished: ' + ok + ' saved, ' + fail + ' failed', fail ? 'warn' : 'success', { actions: PS.isTauri() ? [{ label: 'Open location', fn: PS.revealLast }] : [] });
+  };
+
+  /* ---------------- projects ---------------- */
+  PS.saveProject = async function () {
+    try {
+      const used = new Set(); PS.state.layers.forEach(l => l.assetId && used.add(l.assetId)); if (PS.state.bg.assetId) used.add(PS.state.bg.assetId);
+      Object.values(PS.assets).forEach(a => { if (a.kind === 'photo') used.add(a.id); });
+      const assets = []; for (const id of used) { const a = PS.assets[id]; if (a) assets.push({ id, name: a.name, date: a.date, kind: a.kind, data: await PS.blobToDataUrl(a.blob) }); }
+      const json = JSON.stringify({ app: 'CharlieMJ-PhotoStory', version: 2, state: PS.state, order: PS.photoOrder, assets });
+      const name = (PS.settings.baseName || 'Story') + '-' + stamp() + '.cmjstory.json';
+      const where = await PS.saveBlob(new Blob([json], { type: 'application/json' }), name);
+      PS.notify('Project saved: ' + name + ' → ' + where, 'success');
+    } catch (e) { PS.notify('Could not save project: ' + e.message, 'error'); }
+  };
+  PS.openProjectFile = async function (file) {
+    try {
+      const j = JSON.parse(await file.text());
+      if (j.app !== 'CharlieMJ-PhotoStory' || !j.state) throw new Error('Not a CharlieMJ PhotoStory v2 project file');
+      await PS.restoreRecord(j.state, j.assets.map(a => ({ id: a.id, name: a.name, date: a.date, kind: a.kind, blob: PS.dataUrlToBlob(a.data) })), j.order);
+      PS.notify('Project opened: ' + file.name, 'success');
+    } catch (e) { PS.notify('Could not open project: ' + e.message, 'error'); }
+  };
+
+  /* ---------------- templates ---------------- */
+  const T = (name, o) => Object.assign({ name, design: 'story', layout: '2x2', gap: 12, margin: 0, radius: 0, borderW: 0, borderColor: '#ffffff',
+    bg: { type: 'solid', color: '#15161d' }, items: [] }, o);
+  const title = (text, y, o) => ({ k: 'text', text, y, size: 96, ...o });
+  PS.BUILTIN_TEMPLATES = [
+    T('✈️ Travel', { layout: '3x1', gap: 16, margin: 40, radius: 24, bg: { type: 'gradient', c1: '#0ea5e9', c2: '#1e1b4b', angle: 160 }, items: [title('Travel Diary', 120, { font: 'Impact', outlineW: 3 }), { k: 'emoji', char: '📍', x: 150, y: 1830, size: 90 }, { k: 'stamp', y: 1830, x: 600 }] }),
+    T('📸 Memories', { layout: '2x2', gap: 14, margin: 50, radius: 8, borderW: 8, borderColor: '#fff', bg: { type: 'solid', color: '#f5efe6' }, items: [title('Memories', 1790, { color: '#3b2f2f', font: 'Georgia', italic: true, bold: false })] }),
+    T('🎂 Birthday', { layout: '2x1', gap: 20, margin: 40, radius: 40, bg: { type: 'gradient', c1: '#f472b6', c2: '#8b5cf6', angle: 150 }, items: [title('Happy Birthday!', 130, { font: 'Comic Sans MS', shadowBlur: 12 }), { k: 'emoji', char: '🎉', x: 160, y: 1800, size: 160 }, { k: 'emoji', char: '🎂', x: 920, y: 1800, size: 160 }] }),
+    T('👨‍👩‍👧 Family', { layout: '2x2', gap: 16, margin: 36, radius: 28, bg: { type: 'gradient', c1: '#fde68a', c2: '#fb923c', angle: 180 }, items: [title('Family Time', 1790, { color: '#7c2d12', font: 'Georgia' }), { k: 'emoji', char: '❤️', x: 540, y: 120, size: 110 }] }),
+    T('🤝 Friends', { layout: '3x2', gap: 10, margin: 30, radius: 16, bg: { type: 'solid', color: '#0f172a' }, items: [title('Squad Goals', 1810, { font: 'Impact', color: '#facc15', outlineW: 2 }), { k: 'emoji', char: '🔥', x: 900, y: 120, size: 120 }] }),
+    T('🌿 Nature', { layout: '1x1', margin: 0, bg: { type: 'solid', color: '#052e16' }, items: [title('Into the Wild', 1650, { font: 'Georgia', italic: true, shadowBlur: 20, bold: false }), { k: 'emoji', char: '✨', x: 880, y: 1500, size: 120 }] }),
+    T('🍔 Food', { layout: '2x1', gap: 0, margin: 0, bg: { type: 'solid', color: '#7f1d1d' }, items: [title('Tasty Bites', 960, { font: 'Impact', bgOn: true, bgColor: '#000000', bgAlpha: 0.6, size: 110 }), { k: 'emoji', char: '🔥', x: 880, y: 960, size: 140 }] }),
+    T('📚 Study', { layout: '3x1', gap: 14, margin: 40, radius: 12, bg: { type: 'solid', color: '#1e293b' }, items: [title('Study Session', 110, { font: 'Courier New', color: '#a5f3fc' }), { k: 'stamp', y: 1800, fmt: 'dddd • HH:mm', live: true, x: 540 }] }),
+    T('☀️ Daily life', { layout: '2x2', gap: 12, margin: 30, radius: 20, bg: { type: 'gradient', c1: '#fef3c7', c2: '#c7d2fe', angle: 170 }, items: [title('My Day', 1800, { color: '#312e81' }), { k: 'stamp', y: 130, fmt: 'D MMM YYYY • dddd', color: '#312e81', x: 540 }] })
+  ];
+  PS.userTemplates = () => { try { return JSON.parse(localStorage.getItem('cmj-templates') || '[]'); } catch (e) { return []; } };
+  PS.saveUserTemplate = function (name) {
+    const t = PS.templateFromState(name), list = PS.userTemplates(); list.push(t);
+    localStorage.setItem('cmj-templates', JSON.stringify(list)); PS.notify('Template saved: ' + name, 'success');
+  };
+  PS.deleteUserTemplate = i => { const l = PS.userTemplates(); l.splice(i, 1); localStorage.setItem('cmj-templates', JSON.stringify(l)); };
+  PS.templateFromState = function (name) {
+    const s = PS.state;
+    return { name, user: true, design: s.design, layout: s.layout, rows: s.rows, cols: s.cols, gap: s.gap, margin: s.margin, radius: s.radius, borderW: s.borderW, borderColor: s.borderColor,
+      bg: Object.assign({}, s.bg, { assetId: null }), rowW: s.rowW.slice(), colW: s.colW.slice(), cellAdj: PS.cells(s).map(c => ({ fit: c.fit, adj: c.adj })),
+      layers: PS.clone(s.layers.filter(l => l.type !== 'cell' && l.type !== 'image')) };
+  };
+  PS.applyTemplate = function (t) {
+    const s = PS.state, old = PS.cells(s).map(c => c.assetId), L = PS.LAYOUTS[t.layout] || PS.LAYOUTS['2x2'];
+    s.design = t.design; s.layout = t.layout; s.rows = t.rows || L.rows; s.cols = t.cols || L.cols; s.rowW = t.rowW || []; s.colW = t.colW || [];
+    ['gap', 'margin', 'radius', 'borderW', 'borderColor'].forEach(k => { s[k] = t[k]; });
+    s.bg = Object.assign({ type: 'solid', color: '#15161d', c1: '#8b5cf6', c2: '#1e1b4b', angle: 160, blur: 40, assetId: null }, t.bg);
+    s.layers = s.layers.filter(l => l.type === 'cell'); PS.syncCells(s);
+    PS.cells(s).forEach((c, i) => { if (old[i]) { c.assetId = old[i]; } if (t.cellAdj && t.cellAdj[i]) { c.fit = t.cellAdj[i].fit; c.adj = Object.assign({}, c.adj, t.cellAdj[i].adj); } });
+    if (t.layers) t.layers.forEach(l => s.layers.push(Object.assign(PS.clone(l), { id: PS.uid() })));
+    (t.items || []).forEach(it => {
+      if (it.k === 'text') { const { k, ...o } = it; s.layers.push(PS.newText(Object.assign({ name: 'Title', x: 540 }, o))); }
+      if (it.k === 'emoji') s.layers.push(PS.newEmoji(it.char, { x: it.x, y: it.y, size: it.size }));
+      if (it.k === 'stamp') { const { k, ...o } = it; s.layers.push(PS.newStamp(o)); }
+    });
+    PS.selectedId = null; PS.commit(); PS.emit('panels'); PS.notify('Template applied: ' + t.name, 'success');
+  };
+
+  /* ---------------- colour palette (histogram of a 64px thumbnail, 4 bits/channel) ---------------- */
+  PS.extractPalette = function (asset, n) {
+    const k = 64 / Math.max(asset.w, asset.h), w = Math.max(1, Math.round(asset.w * k)), h = Math.max(1, Math.round(asset.h * k));
+    const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(asset.img, 0, 0, w, h);
+    const d = x.getImageData(0, 0, w, h).data, bins = {};
+    for (let i = 0; i < d.length; i += 4) { if (d[i + 3] < 128) continue; const key = (d[i] >> 4) << 8 | (d[i + 1] >> 4) << 4 | d[i + 2] >> 4;
+      const b = bins[key] || (bins[key] = { n: 0, r: 0, g: 0, b: 0 }); b.n++; b.r += d[i]; b.g += d[i + 1]; b.b += d[i + 2]; }
+    const cols = Object.values(bins).sort((a, b) => b.n - a.n).map(b => [b.r / b.n, b.g / b.n, b.b / b.n]), out = [];
+    for (const c1 of cols) { if (out.every(o => Math.hypot(o[0] - c1[0], o[1] - c1[1], o[2] - c1[2]) > 55)) out.push(c1); if (out.length >= n) break; }
+    return out.map(c => '#' + c.map(v => Math.round(v).toString(16).padStart(2, '0')).join(''));
+  };
+})(window.PS);
+
+</script>
+<script>
+/* editor.js — Editing Engine: preview canvas, hit-testing, drag/zoom/resize, layer actions, keyboard */
+(function (PS) {
+  const cv = () => document.getElementById('preview');
+  PS.view = { zoom: 1 };
+  let guides = [], raf = 0;
+
+  /* ---------- canvas sizing + repaint ---------- */
+  PS.layoutCanvas = function () {
+    const c = cv(), st = document.getElementById('stage'), D = PS.DESIGNS[PS.state.design];
+    const fit = Math.min((st.clientWidth - 48) / D.w, (st.clientHeight - 90) / D.h), k = Math.max(0.05, fit * PS.view.zoom), dpr = window.devicePixelRatio || 1;
+    const cssW = D.w * k, cssH = D.h * k;
+    c.style.width = cssW + 'px'; c.style.height = cssH + 'px';
+    c.width = Math.round(Math.min(cssW * dpr, 2200)); c.height = Math.round(c.width * D.h / D.w);
+    document.getElementById('zoomPct').textContent = Math.round(k / fit * 100 * (fit > 0 ? 1 : 1)) + '%';
+    PS.touch();
+  };
+  PS.on('repaint', () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; const c = cv(); if (!c) return;
+    PS.render(c.getContext('2d'), c.width, PS.state, { preview: true, selectedId: PS.selectedId, safe: PS.settings.safeArea, guides });
+    PS.scheduleRecovery(); }); });
+  setInterval(() => { if (PS.state.layers.some(l => l.type === 'stamp' && l.live && !l.hidden)) PS.touch(); }, 1000);
+
+  /* ---------- geometry helpers ---------- */
+  function toDesign(e) { const r = cv().getBoundingClientRect(), D = PS.DESIGNS[PS.state.design];
+    return { x: (e.clientX - r.left) / r.width * D.w, y: (e.clientY - r.top) / r.height * D.h }; }
+  function local(b, p) { const a = -b.rot * Math.PI / 180, dx = p.x - b.cx, dy = p.y - b.cy;
+    return { x: dx * Math.cos(a) - dy * Math.sin(a), y: dx * Math.sin(a) + dy * Math.cos(a) }; }
+  function hit(p) {
+    const L = PS.state.layers;
+    for (let i = L.length - 1; i >= 0; i--) { const l = L[i], b = PS.bounds[l.id]; if (l.hidden || !b) continue;
+      const q = local(b, p); if (Math.abs(q.x) <= b.w / 2 && Math.abs(q.y) <= b.h / 2) return l; }
+    return null;
+  }
+  function onHandle(p) {
+    const s = PS.selected(), b = s && PS.bounds[s.id]; if (!s || s.type === 'cell' || s.locked || !b) return false;
+    const q = local(b, p), D = PS.DESIGNS[PS.state.design], tol = 22 * D.w / cv().getBoundingClientRect().width;
+    return Math.hypot(q.x - b.w / 2, q.y - b.h / 2) < tol;
+  }
+  const sizeKey = l => (l.type === 'cell' ? 'zoom' : 'size');
+
+  /* ---------- pointer interaction ---------- */
+  let drag = null;
+  function down(e) {
+    cv().setPointerCapture(e.pointerId); const p = toDesign(e);
+    if (onHandle(p)) { const s = PS.selected(), b = PS.bounds[s.id]; drag = { mode: 'resize', s, d0: Math.hypot(p.x - b.cx, p.y - b.cy), size0: s.size, moved: false }; return; }
+    const l = hit(p); PS.select(l ? l.id : null); PS.emit('panels:right');
+    if (!l) { drag = null; return; }
+    drag = { mode: 'move', s: l, p0: p, x0: l.x, y0: l.y, ox0: l.offX, oy0: l.offY, moved: false, bw: PS.bounds[l.id].w, bh: PS.bounds[l.id].h };
+  }
+  function move(e) {
+    if (!drag) { cv().style.cursor = onHandle(toDesign(e)) ? 'nwse-resize' : (hit(toDesign(e)) ? 'grab' : 'default'); return; }
+    const p = toDesign(e), s = drag.s; if (s.locked) return;
+    if (drag.mode === 'resize') { const b = PS.bounds[s.id]; s.size = PS.clamp(drag.size0 * Math.hypot(p.x - b.cx, p.y - b.cy) / drag.d0, 8, 3000); drag.moved = true; PS.touch(); return; }
+    const dx = p.x - drag.p0.x, dy = p.y - drag.p0.y; if (!drag.moved && Math.hypot(dx, dy) < 3) return; drag.moved = true;
+    if (s.type === 'cell') { s.offX = drag.ox0 + dx / drag.bw; s.offY = drag.oy0 + dy / drag.bh; }
+    else { const D = PS.DESIGNS[PS.state.design]; let x = drag.x0 + dx, y = drag.y0 + dy; guides = [];
+      if (Math.abs(x - D.w / 2) < 10) { x = D.w / 2; guides.push({ x }); } if (Math.abs(y - D.h / 2) < 10) { y = D.h / 2; guides.push({ y }); }
+      s.x = x; s.y = y; }
+    PS.touch();
+  }
+  function up() {
+    if (!drag) return; const d = drag; drag = null; guides = [];
+    if (d.moved) { PS.commit('edit'); PS.emit('panels:right'); }
+    else if (d.s.type === 'cell' && !d.s.assetId) PS.pickPhotoForCell(d.s);
+    PS.touch();
+  }
+  let wheelT;
+  function wheel(e) {
+    const p = toDesign(e), l = hit(p) || PS.selected(); if (!l || l.locked) return; e.preventDefault();
+    const f = e.deltaY < 0 ? 1.05 : 1 / 1.05, k = sizeKey(l);
+    l[k] = PS.clamp(l[k] * f, k === 'zoom' ? 0.1 : 8, k === 'zoom' ? 10 : 3000); PS.touch();
+    clearTimeout(wheelT); wheelT = setTimeout(() => { PS.commit('zoom'); PS.emit('panels:right'); }, 350);
+  }
+
+  /* ---------- layer / photo actions ---------- */
+  PS.pickPhotoForCell = cell => { PS.pendingCell = cell.id; document.getElementById('fileInput').click(); };
+  PS.importFiles = async function (files, targetCellId) {
+    const imgs = [...files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp|avif)$/i.test(f.name));
+    if (!imgs.length) return PS.notify('No supported image files found.', 'warn');
+    const added = []; let bad = 0;
+    for (const f of imgs) { try { added.push(await PS.addAsset(f, f.name, (await PS.exifDate(f)) || f.lastModified)); } catch (e) { bad++; } }
+    if (!added.length) return PS.notify('Could not read the selected image(s).', 'error');
+    const rects = PS.cellRects(PS.state), cells = PS.cells(); let rest = added.map(a => a.id);
+    const tgt = targetCellId && PS.getLayer(targetCellId);
+    if (tgt && tgt.type === 'cell') { PS.placePhoto(tgt, added[0], rects[tgt.slot]); rest = rest.slice(1); }
+    const placed = PS.autoFill(PS.state, rest, true) + (tgt ? 1 : 0);
+    PS.commit('add photos'); PS.emit('panels');
+    PS.notify('Added ' + added.length + ' photo' + (added.length > 1 ? 's' : '') + (placed ? ' • placed ' + placed : '') + (bad ? ' • ' + bad + ' failed' : ''), bad ? 'warn' : 'success');
+  };
+  PS.assignAsset = function (assetId, cell) {
+    cell = cell || (PS.selected() && PS.selected().type === 'cell' ? PS.selected() : PS.cells().find(c => !c.assetId) || PS.cells()[0]);
+    PS.placePhoto(cell, PS.assets[assetId], PS.cellRects(PS.state)[cell.slot]); PS.commit('place'); PS.select(cell.id); PS.emit('panels');
+    PS.notify('Photo placed in ' + cell.name, 'info');
+  };
+  PS.clearCell = function (c) { c.assetId = null; PS.commit(); PS.emit('panels'); PS.notify('Photo removed from ' + c.name, 'info'); };
+  PS.removeAsset = function (id) {
+    PS.cells().forEach(c => { if (c.assetId === id) c.assetId = null; });
+    const a = PS.assets[id]; if (a) URL.revokeObjectURL(a.url); delete PS.assets[id]; PS.photoOrder = PS.photoOrder.filter(x => x !== id);
+    PS.commit(); PS.emit('panels'); PS.notify('Photo removed from library', 'info');
+  };
+  PS.resetPhoto = function (c, quiet) { Object.assign(c, { zoom: 1, offX: 0, offY: 0, rot: 0, flipH: false, flipV: false, fit: 'fill' }); c.adj = PS.clone(PS.PRESETS.None);
+    if (c.assetId) PS.placePhoto(c, PS.assets[c.assetId], PS.cellRects(PS.state)[c.slot]); if (!quiet) { PS.commit(); PS.emit('panels:right'); PS.notify('Photo reset', 'info'); } };
+  PS.resetLayout = function () { const s = PS.state; Object.assign(s, { gap: 12, margin: 0, radius: 0, borderW: 0 }); s.rowW = []; s.colW = []; PS.syncCells(s);
+    PS.cells().forEach(c => { PS.resetPhoto(c, true); }); PS.commit(); PS.emit('panels'); PS.notify('Layout reset', 'info'); };
+  PS.addLayer = function (l, msg) { PS.state.layers.push(l); PS.commit(); PS.select(l.id); PS.emit('panels'); PS.notify(msg || 'Layer added', 'success'); };
+  PS.duplicateLayer = function (id) {
+    const l = PS.getLayer(id); if (!l || l.type === 'cell') return PS.notify('Photo slots cannot be duplicated — use another layout instead.', 'info');
+    const c = Object.assign(PS.clone(l), { id: PS.uid(), name: l.name + ' copy', x: l.x + 40, y: l.y + 40 });
+    PS.state.layers.splice(PS.state.layers.indexOf(l) + 1, 0, c); PS.commit(); PS.select(c.id); PS.emit('panels'); PS.notify('Duplicated ' + l.name, 'success');
+  };
+  PS.deleteLayer = function (id) {
+    const l = PS.getLayer(id); if (!l) return; if (l.type === 'cell') return PS.clearCell(l);
+    PS.state.layers.splice(PS.state.layers.indexOf(l), 1); if (PS.selectedId === id) PS.selectedId = null;
+    PS.commit(); PS.emit('panels'); PS.notify('Deleted ' + l.name, 'info');
+  };
+  PS.moveLayer = function (id, dir) {
+    const L = PS.state.layers, i = L.findIndex(l => l.id === id), j = i + dir; if (j < 0 || j >= L.length) return;
+    [L[i], L[j]] = [L[j], L[i]]; PS.commit(); PS.emit('panels');
+  };
+  PS.newProject = function () {
+    if (!confirm('Start a new Story? Unsaved changes will be lost.')) return;
+    Object.values(PS.assets).forEach(a => URL.revokeObjectURL(a.url)); PS.assets = {}; PS.photoOrder = [];
+    PS.state = PS.newState(); PS.selectedId = null; PS.resetHistory(); PS.emit('panels'); PS.notify('New Story started', 'info');
+  };
+  PS.duplicateStory = function () {   // keep design + text, drop photos so new ones can be dropped in
+    PS.cells().forEach(c => { c.assetId = null; c.zoom = 1; c.offX = c.offY = 0; });
+    PS.commit(); PS.emit('panels'); PS.notify('Design duplicated — photos cleared. Add new photos to fill it.', 'success');
+  };
+
+  /* ---------- keyboard ---------- */
+  function key(e) {
+    const t = e.target, typing = t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && t.type !== 'range', ctrl = e.ctrlKey || e.metaKey, k = e.key.toLowerCase();
+    if (ctrl && k === 's') { e.preventDefault(); return PS.saveProject(); }
+    if (ctrl && k === 'e') { e.preventDefault(); return PS.exportCurrent(); }
+    if (ctrl && k === 'o') { e.preventDefault(); return document.getElementById('projectInput').click(); }
+    if (typing) return;
+    if (ctrl && k === 'z') { e.preventDefault(); return e.shiftKey ? PS.redo() : PS.undo(); }
+    if (ctrl && k === 'y') { e.preventDefault(); return PS.redo(); }
+    if (ctrl && k === 'd') { e.preventDefault(); return PS.selectedId && PS.duplicateLayer(PS.selectedId); }
+    if (k === 'escape') return PS.select(null), PS.emit('panels:right');
+    const l = PS.selected(); if (!l) return;
+    if (k === 'delete' || k === 'backspace') { e.preventDefault(); return PS.deleteLayer(l.id); }
+    if (/^arrow/.test(k) && !l.locked) { e.preventDefault(); const st = e.shiftKey ? 10 : 1, dx = k === 'arrowleft' ? -st : k === 'arrowright' ? st : 0, dy = k === 'arrowup' ? -st : k === 'arrowdown' ? st : 0;
+      if (l.type === 'cell') { const b = PS.bounds[l.id]; l.offX += dx / b.w; l.offY += dy / b.h; } else { l.x += dx; l.y += dy; }
+      PS.touch(); clearTimeout(wheelT); wheelT = setTimeout(() => PS.commit('nudge'), 400); }
+    if ((k === '+' || k === '=') && l.type === 'cell') { l.zoom = Math.min(10, l.zoom * 1.05); PS.touch(); }
+    if (k === '-' && l.type === 'cell') { l.zoom = Math.max(0.1, l.zoom / 1.05); PS.touch(); }
+  }
+
+  PS.initEditor = function () {
+    const c = cv(); c.addEventListener('pointerdown', down); c.addEventListener('pointermove', move); c.addEventListener('pointerup', up);
+    c.addEventListener('pointercancel', up); c.addEventListener('wheel', wheel, { passive: false });
+    document.addEventListener('keydown', key); window.addEventListener('resize', PS.layoutCanvas);
+    const st = document.getElementById('stage');
+    st.addEventListener('dragover', e => { e.preventDefault(); st.classList.add('drop'); });
+    st.addEventListener('dragleave', () => st.classList.remove('drop'));
+    st.addEventListener('drop', e => { e.preventDefault(); st.classList.remove('drop'); const l = hit(toDesign(e));
+      PS.importFiles(e.dataTransfer.files, l && l.type === 'cell' ? l.id : null); });
+  };
+})(window.PS);
+
+</script>
+<script>
+/* ui.js — interface: left tool sidebar, contextual right panel, top bar, view bar, settings dialog */
+(function (PS) {
+  const $ = id => document.getElementById(id);
+  const h = (tag, a, ...ch) => { const e = document.createElement(tag);
+    for (const k in (a || {})) { const v = a[k]; if (v == null || v === false) continue;
+      if (k === 'class') e.className = v; else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+      else if (k === 'value' || k === 'checked' || k === 'disabled' || k === 'hidden') e[k] = v; else e.setAttribute(k, v); }
+    ch.flat(9).forEach(c => { if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); }); return e; };
+  PS.h = h;
+  const FONTS = ['Arial', 'Georgia', 'Times New Roman', 'Courier New', 'Verdana', 'Trebuchet MS', 'Impact', 'Comic Sans MS', 'Tahoma', 'Palatino Linotype', 'Segoe UI', 'Lucida Console'];
+  PS.fonts = FONTS.slice();
+
+  /* ---------- control helpers (bind straight onto state objects) ---------- */
+  const slider = (label, o, k, min, max, step, opt) => { opt = opt || {}; const fmt = opt.fmt || (v => +(+v).toFixed(2));
+    const out = h('output', {}, fmt(o[k])), inp = h('input', { type: 'range', min, max, step: step || 1, value: o[k] });
+    inp.oninput = () => { o[k] = +inp.value; out.textContent = fmt(o[k]); if (opt.after) opt.after(); PS.touch(); };
+    inp.onchange = () => PS.commit('edit'); return h('label', { class: 'ctl' }, h('span', {}, label), inp, out); };
+  const color = (label, o, k) => { const i = h('input', { type: 'color', value: o[k] }); i.oninput = () => { o[k] = i.value; PS.touch(); }; i.onchange = () => PS.commit('edit');
+    return h('label', { class: 'ctl row' }, h('span', {}, label), i); };
+  const check = (label, o, k, after) => { const i = h('input', { type: 'checkbox', checked: !!o[k] }); i.onchange = () => { o[k] = i.checked; PS.commit('edit'); if (after) after(); };
+    return h('label', { class: 'ctl row chk' }, i, h('span', {}, label)); };
+  const select = (label, o, k, opts, after) => { const s = h('select', {}, opts.map(x => { const [v, t] = Array.isArray(x) ? x : [x, x]; return h('option', { value: v, selected: String(o[k]) === String(v) }, t); }));
+    s.onchange = () => { o[k] = isNaN(+s.value) || s.value === '' ? s.value : +s.value; PS.commit('edit'); if (after) after(); }; return h('label', { class: 'ctl' }, h('span', {}, label), s); };
+  const btn = (label, fn, cls, title) => h('button', { class: 'b ' + (cls || ''), onclick: fn, title }, label);
+  const sec = (title, ...c) => h('section', {}, h('h3', {}, title), c);
+  const rowb = (...c) => h('div', { class: 'brow' }, c);
+  const redraw = () => { PS.emit('panels'); };
+
+  /* ---------- tabs ---------- */
+  const LTABS = [['photos', '🖼', 'Photos'], ['layout', '▦', 'Layout'], ['style', '🎨', 'Style'], ['add', '＋', 'Add'], ['layers', '☰', 'Layers'], ['tpl', '✦', 'Templates']];
+  const RTABS = [['props', 'Properties'], ['export', 'Export']];
+  let ltab = 'photos', rtab = 'props';
+  function tabs(host, list, cur, set) { host.replaceChildren(...list.map(t => h('button', { class: 'tab' + (t[0] === cur ? ' on' : ''), title: t[2] || t[1], onclick: () => set(t[0]) },
+    t.length === 3 ? [h('b', {}, t[1]), h('small', {}, t[2])] : t[1]))); }
+
+  /* ---------- LEFT: photos ---------- */
+  function panelPhotos() {
+    const ids = PS.photoOrder, sel = PS.selected(), grid = h('div', { class: 'thumbs' });
+    ids.forEach((id, i) => { const a = PS.assets[id]; if (!a) return;
+      grid.append(h('div', { class: 'thumb', title: a.name + '\nClick to place in ' + (sel && sel.type === 'cell' ? sel.name : 'next empty slot') },
+        h('img', { src: a.url, onclick: () => PS.assignAsset(id) }),
+        h('div', { class: 'tb' }, h('button', { onclick: () => { if (i > 0) { [ids[i - 1], ids[i]] = [ids[i], ids[i - 1]]; PS.settings.sortMode = 'manual'; redraw(); } } }, '◀'),
+          h('button', { onclick: () => { if (i < ids.length - 1) { [ids[i + 1], ids[i]] = [ids[i], ids[i + 1]]; PS.settings.sortMode = 'manual'; redraw(); } } }, '▶'),
+          h('button', { onclick: () => PS.removeAsset(id) }, '✕')),
+        h('small', {}, a.name))); });
+    const sortSel = h('select', { onchange: e => { PS.settings.sortMode = e.target.value; PS.saveSettings(); if (e.target.value !== 'manual') PS.photoOrder = PS.sortedPhotoIds(e.target.value); redraw(); PS.notify('Photos sorted by ' + e.target.value, 'info'); } },
+      [['manual', 'Manual order'], ['name', 'Filename'], ['date', 'Capture date (EXIF)']].map(([v, t]) => h('option', { value: v, selected: PS.settings.sortMode === v }, t)));
+    return [sec('Photo library', rowb(btn('＋ Add photos', () => { PS.pendingCell = null; $('fileInput').click(); }, 'primary')),
+      h('p', { class: 'hint' }, 'Drop files onto the canvas, or click an empty slot. New photos fill empty slots automatically, keeping the important area in view.'),
+      h('label', { class: 'ctl' }, h('span', {}, 'Order'), sortSel),
+      rowb(btn('Auto-fill layout', () => { const n = PS.autoFill(PS.state, PS.sortedPhotoIds(PS.settings.sortMode), false); PS.commit(); redraw(); PS.notify('Filled ' + n + ' slots', 'success'); }, '', 'Replace every slot in order'),
+        btn('Fill empty', () => { const n = PS.autoFill(PS.state, PS.sortedPhotoIds(PS.settings.sortMode), true); PS.commit(); redraw(); PS.notify('Filled ' + n + ' empty slots', 'success'); }))),
+      ids.length ? grid : h('p', { class: 'empty' }, 'No photos yet')];
+  }
+  /* ---------- LEFT: layout ---------- */
+  function panelLayout() {
+    const s = PS.state, cards = Object.entries(PS.LAYOUTS).map(([id, L]) => {
+      const rows = id === 'custom' ? s.rows : L.rows, cols = id === 'custom' ? s.cols : L.cols;
+      const mini = h('div', { class: 'mini', style: 'grid-template-columns:repeat(' + cols + ',1fr);grid-template-rows:repeat(' + rows + ',1fr)' }, Array.from({ length: rows * cols }, () => h('i')));
+      return h('button', { class: 'lcard' + (s.layout === id ? ' on' : ''), onclick: () => { PS.setLayout(id); PS.commit('layout'); redraw(); PS.notify('Layout: ' + L.label + ' (' + PS.state.rows * PS.state.cols + ' photos)', 'info'); } },
+        mini, h('b', {}, id === 'custom' ? 'Custom' : id.replace('x', '×')), h('small', {}, id === 'custom' ? rows + '×' + cols : L.label)); });
+    const out = [sec('Layout (rows × columns)', h('div', { class: 'lgrid' }, cards))];
+    if (s.layout === 'custom') out.push(sec('Custom grid', slider('Rows', s, 'rows', 1, 8, 1, { after: () => { PS.syncCells(s); } }), slider('Columns', s, 'cols', 1, 8, 1, { after: () => { PS.syncCells(s); } }),
+      btn('Apply grid', () => { PS.commit('grid'); redraw(); })));
+    out.push(sec('Spacing & frames', slider('Gap', s, 'gap', 0, 120), slider('Outer margin', s, 'margin', 0, 200), slider('Rounded corners', s, 'radius', 0, 220),
+      slider('Outline width', s, 'borderW', 0, 60), color('Frame colour', s, 'borderColor')));
+    if (s.rows > 1 || s.cols > 1) out.push(sec('Panel sizes', s.rowW.length > 1 ? s.rowW.map((_, i) => slider('Row ' + (i + 1) + ' height', s.rowW, i, 0.3, 3, 0.05)) : null,
+      s.colW.length > 1 ? s.colW.map((_, i) => slider('Column ' + (i + 1) + ' width', s.colW, i, 0.3, 3, 0.05)) : null));
+    out.push(sec('Reset', rowb(btn('Reset layout', () => PS.resetLayout()), btn('Smart re-place photos', () => { PS.cells().forEach((c, i) => { if (c.assetId) PS.placePhoto(c, PS.assets[c.assetId], PS.cellRects(s)[i]); }); PS.commit(); PS.notify('Photos re-centred on their focal points', 'success'); }))));
+    return out;
+  }
+  /* ---------- LEFT: style (background + palette) ---------- */
+  let swatches = [], swPick = null;
+  function panelStyle() {
+    const s = PS.state, b = s.bg, out = [];
+    out.push(sec('Background', select('Type', b, 'type', [['solid', 'Solid colour'], ['gradient', 'Gradient'], ['blur', 'Blurred photo'], ['image', 'Custom image'], ['transparent', 'Transparent (PNG/WebP)']], redraw)));
+    if (b.type === 'solid' || b.type === 'blur' || b.type === 'image') out.push(color(b.type === 'solid' ? 'Colour' : 'Fallback colour', b, 'color'));
+    if (b.type === 'gradient') out.push(color('From', b, 'c1'), color('To', b, 'c2'), slider('Angle', b, 'angle', 0, 360, 1, { fmt: v => v + '°' }));
+    if (b.type === 'blur') out.push(slider('Blur amount', b, 'blur', 5, 120, 1), h('p', { class: 'hint' }, 'Uses the first photo in the layout.'));
+    if (b.type === 'image') out.push(btn(b.assetId ? 'Replace background image' : 'Choose background image', () => $('bgInput').click()));
+    out.push(h('p', { class: 'hint' }, 'Transparent areas are filled with your chosen backdrop colour when exporting JPG.'));
+    const src = (PS.selected() && PS.selected().assetId) || (PS.cells().find(c => c.assetId) || {}).assetId;
+    out.push(sec('Colour palette', h('p', { class: 'hint' }, 'Extract colours from ' + (src ? 'the selected / first photo.' : 'a photo (add one first).')),
+      btn('Extract colours', () => { if (!src) return PS.notify('Add a photo first.', 'warn'); swatches = PS.extractPalette(PS.assets[src], 6); swPick = swatches[0]; redraw(); PS.notify('Extracted ' + swatches.length + ' colours', 'success'); }),
+      swatches.length ? [h('div', { class: 'swatches' }, swatches.map(c => h('button', { class: 'sw' + (c === swPick ? ' on' : ''), style: 'background:' + c, title: c, onclick: () => { swPick = c; redraw(); } }))),
+        h('small', {}, 'Apply ' + swPick + ' to:'),
+        rowb(btn('Background', () => { b.type = 'solid'; b.color = swPick; PS.commit(); redraw(); }), btn('Frame', () => { s.borderColor = swPick; if (!s.borderW) s.borderW = 10; PS.commit(); redraw(); }),
+          btn('Selected text', () => { const l = PS.selected(); if (l && (l.type === 'text' || l.type === 'stamp')) { l.color = swPick; PS.commit(); redraw(); } else PS.notify('Select a text layer first.', 'warn'); }))] : null));
+    return out;
+  }
+  /* ---------- LEFT: add ---------- */
+  const EMOJIS = ['🇵🇰', '🇹🇷', '❤️', '✨', '🔥', '📍', '😍', '😂', '🥰', '😎', '🎉', '🎂', '🎁', '⭐', '🌟', '💫', '🌈', '☀️', '🌙', '🌸', '🌿', '🌊', '🏔️', '✈️', '🚗', '🏖️', '📸', '🎵', '🍕', '🍔', '☕', '🍰', '🥳', '👍', '🙌', '💯', '💖', '💜', '🤍', '📚'];
+  function panelAdd() {
+    const custom = h('input', { type: 'text', placeholder: 'Type/paste any emoji', maxlength: 8 });
+    return [sec('Text', rowb(btn('＋ Text box', () => PS.addLayer(PS.newText(), 'Text box added'), 'primary'), btn('＋ Timestamp', () => PS.addLayer(PS.newStamp({ y: 1700 }), 'Timestamp added'))),
+      rowb(btn('＋ Username / signature', () => PS.addLayer(PS.newText({ name: 'Watermark', text: '@charliemj', size: 44, opacity: 0.8, bold: false, shadowBlur: 6, y: 1620 }), 'Watermark text added')),
+        btn('＋ Logo image', () => $('logoInput').click()))),
+      sec('Emoji', h('div', { class: 'emojis' }, EMOJIS.map(e => h('button', { onclick: () => PS.addLayer(PS.newEmoji(e), 'Emoji ' + e + ' added') }, e))),
+        h('div', { class: 'brow' }, custom, btn('Add', () => { const v = custom.value.trim(); if (v) PS.addLayer(PS.newEmoji(v), 'Emoji added'); }))),
+      h('p', { class: 'hint' }, 'Tip: drag objects on the canvas, scroll to resize, drag the corner handle, use arrow keys to nudge.')];
+  }
+  /* ---------- LEFT: layers ---------- */
+  const ICON = { cell: '🖼', text: 'T', stamp: '🕒', emoji: '😀', image: '🏷' };
+  function panelLayers() {
+    const L = PS.state.layers.slice().reverse();
+    return [sec('Layers (top → bottom)', h('div', { class: 'layers' }, L.map(l => h('div', { class: 'layer' + (l.id === PS.selectedId ? ' on' : '') + (l.hidden ? ' off' : ''), onclick: () => { PS.select(l.id); PS.emit('panels:right'); } },
+      h('span', { class: 'li' }, ICON[l.type]), h('span', { class: 'ln' }, l.type === 'cell' ? l.name + (l.assetId ? '' : ' (empty)') : l.name),
+      h('button', { title: l.hidden ? 'Show' : 'Hide', onclick: e => { e.stopPropagation(); l.hidden = !l.hidden; PS.commit(); redraw(); PS.notify((l.hidden ? 'Hidden: ' : 'Shown: ') + l.name, 'info'); } }, l.hidden ? '🚫' : '👁'),
+      h('button', { title: l.locked ? 'Unlock' : 'Lock', onclick: e => { e.stopPropagation(); l.locked = !l.locked; PS.commit(); redraw(); PS.notify((l.locked ? 'Locked: ' : 'Unlocked: ') + l.name, 'info'); } }, l.locked ? '🔒' : '🔓'),
+      h('button', { title: 'Move up', onclick: e => { e.stopPropagation(); PS.moveLayer(l.id, 1); } }, '▲'),
+      h('button', { title: 'Move down', onclick: e => { e.stopPropagation(); PS.moveLayer(l.id, -1); } }, '▼'),
+      h('button', { title: 'Duplicate', onclick: e => { e.stopPropagation(); PS.duplicateLayer(l.id); } }, '⧉'),
+      h('button', { title: l.type === 'cell' ? 'Remove photo' : 'Delete', onclick: e => { e.stopPropagation(); PS.deleteLayer(l.id); } }, '🗑'))))),
+      h('p', { class: 'hint' }, 'Photo slots come from the layout; they can be hidden, locked, reordered, or emptied but not deleted.')];
+  }
+  /* ---------- LEFT: templates ---------- */
+  let tplName = '';
+  function panelTpl() {
+    const user = PS.userTemplates(), nm = h('input', { type: 'text', placeholder: 'Template name', value: tplName, oninput: e => { tplName = e.target.value; } });
+    return [sec('Ready-made templates', h('div', { class: 'tpls' }, PS.BUILTIN_TEMPLATES.map(t => btn(t.name, () => PS.applyTemplate(t))))),
+      sec('Your templates', user.length ? user.map((t, i) => h('div', { class: 'brow tplrow' }, btn(t.name, () => PS.applyTemplate(t)), btn('🗑', () => { PS.deleteUserTemplate(i); redraw(); }))) : h('p', { class: 'empty' }, 'None saved yet'),
+        h('div', { class: 'brow' }, nm, btn('Save', () => { if (!tplName.trim()) return PS.notify('Give the template a name.', 'warn'); PS.saveUserTemplate(tplName.trim()); tplName = ''; redraw(); }))),
+      sec('Duplicate Story', h('p', { class: 'hint' }, 'Keep this design (layout, text, emoji, colours) and clear the photos so you can swap in new ones.'), btn('Duplicate design & clear photos', () => PS.duplicateStory()))];
+  }
+
+  /* ---------- RIGHT: properties ---------- */
+  function propsCell(c) {
+    const a = PS.assets[c.assetId], rect = () => PS.cellRects(PS.state)[c.slot];
+    const preset = h('select', { onchange: e => { c.adj = PS.clone(PS.PRESETS[e.target.value]); PS.commit('filter'); redraw(); PS.notify('Filter: ' + e.target.value, 'info'); } },
+      [h('option', { value: '', disabled: true, selected: true }, 'Preset filter…'), ...Object.keys(PS.PRESETS).map(k => h('option', { value: k }, k))]);
+    return [sec(c.name + (a ? ' — ' + a.name : ' (empty)'),
+      rowb(btn(a ? 'Replace photo' : 'Add photo', () => PS.pickPhotoForCell(c), 'primary'), btn('Remove', () => PS.clearCell(c))),
+      rowb(btn('Fit to frame', () => { Object.assign(c, { fit: 'fit', zoom: 1, offX: 0, offY: 0 }); PS.commit(); redraw(); }, '', 'Whole photo visible'),
+        btn('Fill (crop)', () => { if (a) PS.placePhoto(c, a, rect()); PS.commit(); redraw(); }, '', 'Cover the frame, keeping the focal area'), btn('Reset photo', () => PS.resetPhoto(c)))),
+      sec('Crop, zoom & position', slider('Zoom', c, 'zoom', 0.1, 6, 0.01, { fmt: v => Math.round(v * 100) + '%' }), slider('Position X', c, 'offX', -1.5, 1.5, 0.005), slider('Position Y', c, 'offY', -1.5, 1.5, 0.005),
+        slider('Rotate', c, 'rot', -180, 180, 1, { fmt: v => v + '°' }), h('div', { class: 'brow' }, check('Flip ↔', c, 'flipH'), check('Flip ↕', c, 'flipV')),
+        h('p', { class: 'hint' }, 'Drag the photo to reposition, scroll to zoom. The frame itself crops it.')),
+      sec('Enhance', h('label', { class: 'ctl' }, h('span', {}, 'Filter'), preset),
+        slider('Brightness', c.adj, 'brightness', 0, 200), slider('Contrast', c.adj, 'contrast', 0, 200), slider('Saturation', c.adj, 'saturation', 0, 200),
+        slider('Warmth', c.adj, 'warmth', -100, 100), slider('Sharpness', c.adj, 'sharpness', 0, 100), slider('Grayscale', c.adj, 'grayscale', 0, 100), slider('Blur', c.adj, 'blur', 0, 12, 0.1),
+        rowb(btn('Reset look', () => { c.adj = PS.clone(PS.PRESETS.None); PS.commit(); redraw(); }), btn('Apply look to all', () => { PS.cells().forEach(x => { x.adj = PS.clone(c.adj); }); PS.commit(); PS.notify('Look applied to all photos', 'success'); })))];
+  }
+  function commonObj(l) {
+    const D = PS.DESIGNS[PS.state.design];
+    return sec('Position & arrange', slider('X', l, 'x', 0, D.w, 1), slider('Y', l, 'y', 0, D.h, 1), slider('Rotate', l, 'rot', -180, 180, 1, { fmt: v => v + '°' }),
+      rowb(btn('Center H', () => { l.x = D.w / 2; PS.commit(); redraw(); }), btn('Center V', () => { l.y = D.h / 2; PS.commit(); redraw(); }), btn('Duplicate', () => PS.duplicateLayer(l.id)), btn('Delete', () => PS.deleteLayer(l.id), 'danger')));
+  }
+  function propsText(l) {
+    const isStamp = l.type === 'stamp', out = [];
+    const nm = h('input', { type: 'text', value: l.name, oninput: e => { l.name = e.target.value; }, onchange: () => { PS.commit(); PS.emit('panels:left'); } });
+    out.push(sec(isStamp ? 'Timestamp' : 'Text', h('label', { class: 'ctl' }, h('span', {}, 'Layer name'), nm)));
+    if (!isStamp) out.push(h('textarea', { rows: 3, oninput: e => { l.text = e.target.value; PS.touch(); }, onchange: () => PS.commit('text') }, l.text));
+    else {
+      const fmts = PS.STAMP_FORMATS.includes(l.fmt) ? PS.STAMP_FORMATS : [l.fmt, ...PS.STAMP_FORMATS];
+      out.push(select('Preset format', l, 'fmt', fmts.map(f => [f, PS.formatDate(new Date(), f)]), redraw),
+        h('label', { class: 'ctl' }, h('span', {}, 'Custom format'), h('input', { type: 'text', value: l.fmt, oninput: e => { l.fmt = e.target.value; PS.touch(); }, onchange: () => { PS.commit(); } })),
+        h('p', { class: 'hint' }, 'Tokens: YYYY MM DD dddd ddd MMMM MMM HH hh h mm ss A — wrap literal text in [brackets].'),
+        h('div', { class: 'brow' }, btn('● Live clock', () => { l.live = true; PS.commit(); redraw(); }, l.live ? 'primary' : ''), btn('Fixed time', () => { l.live = false; PS.commit(); redraw(); }, l.live ? '' : 'primary')),
+        l.live ? null : h('label', { class: 'ctl' }, h('span', {}, 'Date & time'), h('input', { type: 'datetime-local', value: l.fixedTime, oninput: e => { l.fixedTime = e.target.value; PS.touch(); }, onchange: () => PS.commit() })),
+        h('label', { class: 'ctl' }, h('span', {}, 'Location (optional)'), h('input', { type: 'text', value: l.location, oninput: e => { l.location = e.target.value; PS.touch(); }, onchange: () => PS.commit() })),
+        h('label', { class: 'ctl' }, h('span', {}, 'Caption (optional)'), h('input', { type: 'text', value: l.caption, oninput: e => { l.caption = e.target.value; PS.touch(); }, onchange: () => PS.commit() })));
+    }
+    const fontIn = h('input', { type: 'file', accept: '.ttf,.otf,.woff,.woff2', hidden: true, onchange: async e => { const f = e.target.files[0]; if (!f) return;
+      try { const name = f.name.replace(/\.[^.]+$/, ''), ff = new FontFace(name, await f.arrayBuffer()); await ff.load(); document.fonts.add(ff); PS.fonts.push(name); l.font = name; PS.commit(); redraw(); PS.notify('Font loaded: ' + name + ' (not stored in project files)', 'success'); }
+      catch (err) { PS.notify('Could not load font: ' + err.message, 'error'); } e.target.value = ''; } });
+    const fl = PS.fonts.includes(l.font) ? PS.fonts : [l.font, ...PS.fonts];
+    out.push(sec('Font', select('Family', l, 'font', fl), rowb(btn('Load font file…', () => fontIn.click()), fontIn),
+      slider('Size', l, 'size', 12, 400, 1), color('Colour', l, 'color'),
+      h('div', { class: 'brow' }, check('Bold', l, 'bold'), check('Italic', l, 'italic')),
+      h('div', { class: 'brow seg' }, ['left', 'center', 'right'].map(a => btn({ left: '⯇', center: '☰', right: '⯈' }[a], () => { l.align = a; PS.commit(); redraw(); }, l.align === a ? 'primary' : '', 'Align ' + a))),
+      slider('Opacity', l, 'opacity', 0.05, 1, 0.01)));
+    out.push(sec('Outline, shadow & background', slider('Outline', l, 'outlineW', 0, 30), color('Outline colour', l, 'outlineColor'), slider('Shadow', l, 'shadowBlur', 0, 60), color('Shadow colour', l, 'shadowColor'),
+      check('Background box', l, 'bgOn', redraw), l.bgOn ? [color('Box colour', l, 'bgColor'), slider('Box opacity', l, 'bgAlpha', 0, 1, 0.01), slider('Padding', l, 'pad', 0, 80)] : null));
+    out.push(commonObj(l)); return out;
+  }
+  function propsEmoji(l) {
+    return [sec('Emoji', h('label', { class: 'ctl' }, h('span', {}, 'Character'), h('input', { type: 'text', value: l.char, maxlength: 8, oninput: e => { l.char = e.target.value || '✨'; PS.touch(); }, onchange: () => PS.commit() })),
+      slider('Size', l, 'size', 20, 800, 1), slider('Opacity', l, 'opacity', 0.05, 1, 0.01)), commonObj(l)];
+  }
+  function propsImage(l) {
+    return [sec('Logo / signature', slider('Size', l, 'size', 30, 1080, 1), slider('Opacity', l, 'opacity', 0.05, 1, 0.01)), commonObj(l)];
+  }
+  function propsNone() {
+    return [sec('Nothing selected', h('p', { class: 'hint' }, 'Click a photo, text, emoji or timestamp on the canvas (or in Layers) to edit it here.')),
+      sec('Quick actions', rowb(btn('Undo', PS.undo), btn('Redo', PS.redo)), rowb(btn('Reset layout', PS.resetLayout), btn('Safe area', () => { PS.settings.safeArea = !PS.settings.safeArea; PS.saveSettings(); syncViewbar(); PS.touch(); })))];
+  }
+  function panelProps() {
+    const l = PS.selected(); if (!l) return propsNone();
+    const lock = l.locked ? [h('p', { class: 'hint warn' }, '🔒 This layer is locked — unlock it in Layers to move it.')] : [];
+    const body = l.type === 'cell' ? propsCell(l) : (l.type === 'text' || l.type === 'stamp') ? propsText(l) : l.type === 'emoji' ? propsEmoji(l) : propsImage(l);
+    return [...lock, ...body];
+  }
+  /* ---------- RIGHT: export ---------- */
+  function panelExport() {
+    const S = PS.settings, sz = PS.exportSize(), D = PS.DESIGNS[PS.state.design], fmtSel = select('Format', S, 'format', [['jpg', 'JPG'], ['png', 'PNG'], ['webp', 'WebP (optional)']], () => { PS.saveSettings(); redraw(); });
+    const q = slider('JPG / WebP quality', S, 'quality', 50, 100, 1, { fmt: v => v + '%', after: () => PS.saveSettings() });
+    const name = h('input', { type: 'text', value: S.baseName, oninput: e => { S.baseName = e.target.value.replace(/[\\/:*?"<>|]/g, '-'); PS.saveSettings(); } });
+    const res = select('Resolution', S, 'resolution', [[1, D.w + '×' + D.h + ' (Full HD, standard)'], [1.3333333, Math.round(D.w * 1.3333333) + '×' + Math.round(D.h * 1.3333333) + ' (high-res)']], () => { PS.saveSettings(); redraw(); });
+    return [sec('Export', h('p', { class: 'dims' }, sz.w + ' × ' + sz.h + ' px • ' + D.name), res, fmtSel, S.format === 'png' ? null : q,
+      S.format === 'jpg' ? h('label', { class: 'ctl row' }, h('span', {}, 'Backdrop for transparent areas'), h('input', { type: 'color', value: S.jpgBg, oninput: e => { S.jpgBg = e.target.value; PS.saveSettings(); } })) : null,
+      h('label', { class: 'ctl' }, h('span', {}, 'File name prefix'), name), h('small', {}, 'Saved as ' + (S.baseName || 'Story') + '-YYYYMMDD-HHMMSS.' + S.format),
+      h('button', { class: 'b primary big', onclick: PS.exportCurrent }, '⬇ Export ' + S.format.toUpperCase() + ' (Ctrl+E)')),
+      sec('Save location', h('p', { class: 'folder', title: S.exportDir }, S.exportDir ? '📁 ' + S.exportDir : '📁 Browser default (Downloads)'),
+        rowb(btn('Choose folder…', PS.chooseFolder), btn('Open location', PS.revealLast, '', 'Desktop app only'))),
+      sec('Batch export', h('p', { class: 'hint' }, 'Splits all library photos into Stories using the current layout (' + PS.state.rows * PS.state.cols + ' per Story, in the chosen order) and numbers each file.'),
+        btn('Export all photos as Stories', PS.batchExport)),
+      sec('Project', rowb(btn('Save project (Ctrl+S)', PS.saveProject), btn('Open…', () => $('projectInput').click())),
+        h('p', { class: 'hint' }, '🔒 Everything stays on this PC. Unfinished work is auto-saved locally for crash recovery.'))];
+  }
+
+  /* ---------- assemble ---------- */
+  function renderLeft() { tabs($('leftTabs'), LTABS, ltab, t => { ltab = t; renderLeft(); });
+    const f = { photos: panelPhotos, layout: panelLayout, style: panelStyle, add: panelAdd, layers: panelLayers, tpl: panelTpl }[ltab]; $('leftBody').replaceChildren(...f()); }
+  function renderRight() { tabs($('rightTabs'), RTABS, rtab, t => { rtab = t; renderRight(); });
+    $('rightBody').replaceChildren(...(rtab === 'export' ? panelExport() : panelProps())); updateStatus(); }
+  function updateStatus() {
+    const s = PS.state, D = PS.DESIGNS[s.design], sz = PS.exportSize(), l = PS.selected();
+    $('stLayout').textContent = (PS.LAYOUTS[s.layout].label) + ' • ' + s.rows + '×' + s.cols;
+    $('stCanvas').textContent = D.w + '×' + D.h + ' → export ' + sz.w + '×' + sz.h + ' ' + PS.settings.format.toUpperCase();
+    $('stSel').textContent = l ? 'Selected: ' + l.name : 'No selection';
+    $('undoBtn').disabled = !PS.canUndo(); $('redoBtn').disabled = !PS.canRedo();
+  }
+  function syncViewbar() { $('safeChk').checked = PS.settings.safeArea; $('gridChk').checked = PS.settings.showGrid; $('stage').classList.toggle('grid', PS.settings.showGrid); }
+
+  function settingsDialog() {
+    const S = PS.settings, d = $('dlg'), keys = [['Ctrl+Z / Ctrl+Y', 'Undo / Redo'], ['Ctrl+S', 'Save project'], ['Ctrl+O', 'Open project'], ['Ctrl+E', 'Export'], ['Ctrl+D', 'Duplicate layer'], ['Delete', 'Delete layer / remove photo'], ['Arrows (Shift = ×10)', 'Nudge'], ['+ / −', 'Zoom selected photo'], ['Mouse wheel', 'Zoom photo / resize object'], ['Esc', 'Deselect']];
+    d.replaceChildren(h('h2', {}, '⚙ Settings'),
+      select('Interface design', S, 'theme', [['dark', 'Dark Creative Studio (default)'], ['minimal', 'Clean Minimal Studio'], ['premium', 'Premium Gradient Studio'], ['compact', 'Compact Portable Workspace']], () => { PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); }),
+      slider('Interface scale', S, 'uiScale', 0.8, 1.4, 0.05, { fmt: v => Math.round(v * 100) + '%', after: () => { PS.applySettings(); PS.layoutCanvas(); } }),
+      check('Compact workspace (smaller panels)', S, 'compact', () => { PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); }),
+      h('p', { class: 'folder' }, 'Default export folder: ' + (S.exportDir || 'browser Downloads')), rowb(btn('Choose…', async () => { await PS.chooseFolder(); settingsDialog(); })),
+      h('h3', {}, 'Keyboard shortcuts'), h('table', { class: 'keys' }, keys.map(k => h('tr', {}, h('td', {}, h('kbd', {}, k[0])), h('td', {}, k[1])))),
+      h('p', { class: 'hint' }, PS.isTauri() ? 'Settings are stored next to the .exe (portable).' : 'Settings are stored in this browser.'), rowb(btn('Close', () => { PS.saveSettings(); d.close(); }, 'primary')));
+    if (!d.open) d.showModal();
+  }
+
+  PS.initUI = function () {
+    PS.on('panels', () => { renderLeft(); renderRight(); updateStatus(); });
+    PS.on('panels:right', () => { renderRight(); if (ltab === 'layers') renderLeft(); });
+    PS.on('panels:left', renderLeft);
+    PS.on('select', () => { if (rtab !== 'props' && PS.selectedId) rtab = 'props'; renderRight(); if (ltab === 'layers') renderLeft(); });
+    PS.on('committed', updateStatus); PS.on('settings', () => { syncViewbar(); updateStatus(); });
+    $('btnNew').onclick = PS.newProject; $('btnOpen').onclick = () => $('projectInput').click(); $('btnSave').onclick = PS.saveProject;
+    $('undoBtn').onclick = PS.undo; $('redoBtn').onclick = PS.redo; $('btnResetLayout').onclick = PS.resetLayout; $('btnResetPhoto').onclick = () => { const c = PS.selected(); if (c && c.type === 'cell') PS.resetPhoto(c); else PS.notify('Select a photo first.', 'info'); };
+    $('btnExport').onclick = PS.exportCurrent; $('btnSettings').onclick = settingsDialog;
+    $('btnTheme').onclick = () => { const T = ['dark', 'minimal', 'premium', 'compact'], n = T[(T.indexOf(PS.settings.theme) + 1) % 4]; PS.settings.theme = n; PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); PS.notify('Design: ' + n, 'info'); };
+    const ds = $('designSel'); ds.replaceChildren(...Object.entries(PS.DESIGNS).map(([k, d]) => h('option', { value: k }, d.name)));
+    ds.onchange = () => { PS.state.design = ds.value; PS.commit('design'); PS.layoutCanvas(); PS.notify('Design: ' + PS.DESIGNS[ds.value].name, 'info'); renderRight(); };
+    PS.on('committed', () => { ds.value = PS.state.design; });
+    $('zoomIn').onclick = () => { PS.view.zoom = Math.min(4, PS.view.zoom * 1.2); PS.layoutCanvas(); }; $('zoomOut').onclick = () => { PS.view.zoom = Math.max(0.3, PS.view.zoom / 1.2); PS.layoutCanvas(); };
+    $('zoomFit').onclick = () => { PS.view.zoom = 1; PS.layoutCanvas(); };
+    $('safeChk').onchange = e => { PS.settings.safeArea = e.target.checked; PS.saveSettings(); PS.touch(); };
+    $('gridChk').onchange = e => { PS.settings.showGrid = e.target.checked; PS.saveSettings(); syncViewbar(); };
+    $('fileInput').onchange = async e => { await PS.importFiles(e.target.files, PS.pendingCell); PS.pendingCell = null; e.target.value = ''; };
+    $('projectInput').onchange = async e => { if (e.target.files[0]) await PS.openProjectFile(e.target.files[0]); e.target.value = ''; };
+    $('bgInput').onchange = async e => { const f = e.target.files[0]; if (!f) return; try { const a = await PS.addAsset(f, f.name, f.lastModified, 'asset'); PS.state.bg.assetId = a.id; PS.state.bg.type = 'image'; PS.commit(); redraw(); PS.notify('Background image set', 'success'); } catch (err) { PS.notify('Could not load image', 'error'); } e.target.value = ''; };
+    $('logoInput').onchange = async e => { const f = e.target.files[0]; if (!f) return; try { const a = await PS.addAsset(f, f.name, f.lastModified, 'asset'); PS.addLayer(PS.newImageLayer(a.id, f.name.replace(/\.[^.]+$/, '')), 'Logo added'); } catch (err) { PS.notify('Could not load image', 'error'); } e.target.value = ''; };
+    PS.emit('panels'); syncViewbar();
+  };
+})(window.PS);
+
+</script>
+<script>
+/* app.js — bootstrap */
+(async function (PS) {
+  await PS.loadSettings();
+  PS.resetHistory(); PS.initUI(); PS.initEditor(); PS.layoutCanvas();
+  document.getElementById('ver').textContent = 'v2.0';
+  PS.notify('Welcome to CharlieMJ PhotoStory — drop photos on the canvas to begin.', 'info');
+  PS.checkRecovery();
+  window.addEventListener('beforeunload', e => { if (Object.keys(PS.assets).length) { e.preventDefault(); e.returnValue = ''; } });
+})(window.PS);
+
+</script>
+</body>
+</html>

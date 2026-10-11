@@ -1,4 +1,68 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>CharlieMJ PhotoStory</title>
-<meta http-equiv="refresh" content="0; url=web/index.html"></head>
-<body><a href="web/index.html">Open CharlieMJ PhotoStory</a></body></html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CharlieMJ PhotoStory v2.0</title>
+<link rel="stylesheet" href="web/css/style.css">
+</head>
+<body>
+<!-- Dark Creative Studio: top bar · left tool sidebar · central canvas · contextual right panel -->
+<header class="topbar">
+  <div class="brand">Charlie<b>MJ</b> PhotoStory <small id="ver"></small></div>
+  <div class="grp">
+    <button id="btnNew" class="b" title="New Story">New</button>
+    <button id="btnOpen" class="b" title="Open project (Ctrl+O)">Open</button>
+    <button id="btnSave" class="b" title="Save project (Ctrl+S)">Save</button>
+  </div>
+  <div class="grp">
+    <button id="undoBtn" class="b" title="Undo (Ctrl+Z)">↶ Undo</button>
+    <button id="redoBtn" class="b" title="Redo (Ctrl+Y)">↷ Redo</button>
+    <button id="btnResetPhoto" class="b" title="Reset selected photo">Reset photo</button>
+    <button id="btnResetLayout" class="b" title="Reset layout, spacing and photo positions">Reset layout</button>
+  </div>
+  <div class="grp"><select id="designSel" title="Design type"></select></div>
+  <div class="sp"></div>
+  <button id="btnTheme" class="b" title="Cycle interface design (Dark · Minimal · Premium · Compact)">◐</button>
+  <button id="btnSettings" class="b" title="Settings & shortcuts">⚙</button>
+  <button id="btnExport" class="b primary" title="Export (Ctrl+E)">⬇ Export</button>
+</header>
+
+<div class="main">
+  <aside class="side left"><nav id="leftTabs" class="tabs vertical"></nav><div id="leftBody" class="body"></div></aside>
+  <main id="stage" class="grid">
+    <div class="canvaswrap"><canvas id="preview"></canvas></div>
+    <div class="viewbar">
+      <button id="zoomOut" class="b" title="Zoom out">−</button><span id="zoomPct">100%</span><button id="zoomIn" class="b" title="Zoom in">＋</button>
+      <button id="zoomFit" class="b">Fit</button>
+      <label><input type="checkbox" id="safeChk"> Safe-area overlay</label>
+      <label><input type="checkbox" id="gridChk"> Grid</label>
+    </div>
+  </main>
+  <aside class="side right"><nav id="rightTabs" class="tabs"></nav><div id="rightBody" class="body"></div></aside>
+</div>
+
+<footer class="statusbar"><span id="stLayout"></span><span id="stCanvas"></span><span id="stSel"></span><span id="stStatus" class="grow">Ready</span><span>🔒 100% offline</span></footer>
+
+<div id="toasts"></div>
+<div id="batchProg" hidden><i></i><span></span></div>
+<dialog id="dlg"></dialog>
+<input type="file" id="fileInput" accept="image/*" multiple hidden>
+<input type="file" id="projectInput" accept=".json,.cmjstory" hidden>
+<input type="file" id="bgInput" accept="image/*" hidden>
+<input type="file" id="logoInput" accept="image/*" hidden>
+
+<!-- Modules (classic scripts so the app also runs from file://) -->
+<script src="web/js/core.js"></script>
+<script src="web/js/notify.js"></script>
+<script src="web/js/layouts.js"></script>
+<script src="web/js/filters.js"></script>
+<script src="web/js/stamp.js"></script>
+<script src="web/js/render.js"></script>
+<script src="web/js/settings.js"></script>
+<script src="web/js/services.js"></script>
+<script src="web/js/editor.js"></script>
+<script src="web/js/ui.js"></script>
+<script src="web/js/app.js"></script>
+</body>
+</html>
