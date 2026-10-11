@@ -1,9 +1,9 @@
 name: build-windows-exe
 
-# Builds the portable Windows .exe (v2) on a real Windows machine (GitHub's
-# windows-latest runner) and attaches it as a downloadable artifact.
-# This does NOT touch the web app or GitHub Pages — it only builds the
-# desktop shell in /desktop-tauri.
+# Builds the portable Windows .exe (v2) on GitHub's windows-latest runner and
+# publishes it to the repo's Releases page (README "Download for Windows" button).
+# Run it from: Actions -> build-windows-exe -> Run workflow.
+# This does not touch the web app / GitHub Pages.
 
 on:
   workflow_dispatch: {}
@@ -26,6 +26,11 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop-tauri/src-tauri
+
       - name: Install desktop dependencies
         working-directory: desktop-tauri
         run: npm install
@@ -34,16 +39,23 @@ jobs:
         working-directory: desktop-tauri
         run: npx tauri build --no-bundle
 
-      - name: Upload portable exe
+      - name: Name the exe
+        shell: pwsh
+        run: |
+          Copy-Item desktop-tauri/src-tauri/target/release/charliemj-photostory.exe CharlieMJ-PhotoStory-v2-Portable.exe
+          Get-Item CharlieMJ-PhotoStory-v2-Portable.exe | Select-Object Name, Length
+
+      - name: Upload as workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: CharlieMJ-PhotoStory-Windows-Portable
-          path: desktop-tauri/src-tauri/target/release/charliemj-photostory.exe
+          name: CharlieMJ-PhotoStory-v2-Portable
+          path: CharlieMJ-PhotoStory-v2-Portable.exe
 
-      # On a version tag (e.g. v2.0.0) also attach the exe to the GitHub Release,
-      # which is what the README "Download for Windows" button points to.
-      - name: Publish to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v')
+      # Always publish a Release so the .exe has a stable download link.
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: desktop-tauri/src-tauri/target/release/charliemj-photostory.exe
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || format('v2.0.{0}', github.run_number) }}
+          name: CharlieMJ PhotoStory v2.0 (Windows portable)
+          body: "Portable Windows app - no installer. Download CharlieMJ-PhotoStory-v2-Portable.exe and double-click it. Settings are saved next to the exe."
+          files: CharlieMJ-PhotoStory-v2-Portable.exe

@@ -10,4 +10,4 @@
 * **v1 projects** (`.cmjproj.json`) cannot be imported into v2.
 * **Smart placement** is a lightweight edge-energy heuristic, not face detection.
 * **Shortcuts** are fixed (not user-remappable yet).
-* The Windows `.exe` is built by CI (`.github/workflows/build-windows-exe.yml`); the Rust shell was written but not compiled in the environment that produced this repo — run the workflow once to verify.
+* The Windows `.exe` is built by CI (`.github/workflows/build-windows-exe.yml`). The Rust shell was compile-checked (cargo check, Rust 1.91, Tauri 2) but not run on Windows.

@@ -1,6 +1,6 @@
 # Build the portable Windows app (v2)
 
-**Easiest:** push the repo to GitHub → *Actions → build-windows-exe → Run workflow* → download the artifact `CharlieMJ-PhotoStory-Windows-Portable` (a single `.exe`, no installer).
+**Easiest:** push the repo to GitHub → *Actions → build-windows-exe → Run workflow* → the finished `CharlieMJ-PhotoStory-v2-Portable.exe` appears on the **Releases** page (and as a run artifact).
 
 **Locally (Windows):** install Node 20+, Rust (stable, MSVC) and WebView2, then:
 

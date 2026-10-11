@@ -21,7 +21,7 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 
 ## Quick start
 
-- **Web / any browser:** open [`web/index.html`](web/index.html) (or the root `index.html`, which redirects there). No build step, works from `file://`.
+- **Web / any browser:** double-click [`web/index.html`](web/index.html). No build step, works offline from `file://`. Live copy: https://awsrmmustansarjavaid.github.io/CharlieMJ-PhotoStory/
 - **Windows portable app:** build with the included GitHub Action (*Actions → build-windows-exe → Run workflow*) or follow [`desktop-tauri/BUILD-WINDOWS.md`](desktop-tauri/BUILD-WINDOWS.md). The desktop build adds a native folder picker, "Open location", and `settings.json` stored next to the `.exe`.
 
 ## What's new in v2

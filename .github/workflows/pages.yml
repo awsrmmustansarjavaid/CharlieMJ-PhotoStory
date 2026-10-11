@@ -1,5 +1,5 @@
 name: deploy-web
-# Publishes the offline web app (root redirect + /web) to GitHub Pages on every push to main.
+# Publishes the offline web app (the /web folder) to GitHub Pages on every push to main.
 on:
   push:
     branches: [main]
@@ -18,5 +18,5 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: web
       - uses: actions/deploy-pages@v4
