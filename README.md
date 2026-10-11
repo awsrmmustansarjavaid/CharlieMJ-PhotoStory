@@ -13,15 +13,21 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 
 </div>
 
+
 <p align="center">
-  <a href="/downloads/CharlieMJ-PhotoStory-v2/CharlieMJ-PhotoStory-v2-Portable/CharlieMJ-PhotoStory-v2-Portable.exe">
-    <img src="https://img.shields.io/badge/%E2%AC%87%20Download%20for%20Windows-2ea44f?style=for-the-badge" alt="Download CharlieMJ PhotoStory for Windows (portable .exe)">
+  <a href="/downloads/CharlieMJ-PhotoStory-v1/CharlieMJ-PhotoStory-Windows-Portable/charliemj-photostory.exe">
+    <img src="https://img.shields.io/badge/⬇%20Download%20v1%20(Windows)-2ea44f?style=for-the-badge" alt="Download CharlieMJ PhotoStory v1 for Windows (Portable)">
   </a>
   &nbsp;
+  <a href="/downloads/CharlieMJ-PhotoStory-v2/CharlieMJ-PhotoStory-v2-Portable/CharlieMJ-PhotoStory-v2-Portable.exe">
+    <img src="https://img.shields.io/badge/⬇%20Download%20v2%20(Windows)-238636?style=for-the-badge" alt="Download CharlieMJ PhotoStory v2 for Windows (Portable)">
+  </a>
+  <br><br>
   <a href="https://awsrmmustansarjavaid.github.io/CharlieMJ-PhotoStory/">
-    <img src="https://img.shields.io/badge/%F0%9F%8C%90%20Open%20Web%20App-8b5cf6?style=for-the-badge" alt="Open the web app">
+    <img src="https://img.shields.io/badge/🌐%20Open%20Web%20App-8b5cf6?style=for-the-badge" alt="Open CharlieMJ PhotoStory Web App">
   </a>
 </p>
+
 
 ## Quick start
 
@@ -29,6 +35,8 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 - **Windows portable app:** build with the included GitHub Action (*Actions → build-windows-exe → Run workflow*) or follow [`desktop-tauri/BUILD-WINDOWS.md`](desktop-tauri/BUILD-WINDOWS.md). The desktop build adds a native folder picker, "Open location", and `settings.json` stored next to the `.exe`.
 
 ## What's new in v2
+
+<img src="./asset/img/CharlieMJ-PhotoStory-v2-Instagram-Post.png" width="300" alt="CharlieMJ PhotoStory" />
 
 | Area | Features |
 |---|---|
