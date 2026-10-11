@@ -2,12 +2,18 @@ name: build-windows-exe
 
 # Builds the portable Windows .exe (v2) on GitHub's windows-latest runner and
 # publishes it to the repo's Releases page (README "Download for Windows" button).
-# Run it from: Actions -> build-windows-exe -> Run workflow.
+# It runs automatically on every push to main, or manually from:
+# Actions -> build-windows-exe -> Run workflow.
 # This does not touch the web app / GitHub Pages.
 
 on:
   workflow_dispatch: {}
   push:
+    branches: [main]          # builds automatically on every push - no manual step needed
+    paths:
+      - "web/**"
+      - "desktop-tauri/**"
+      - ".github/workflows/build-windows-exe.yml"
     tags: ["v*"]
 
 permissions:
@@ -44,6 +50,11 @@ jobs:
         run: |
           Copy-Item desktop-tauri/src-tauri/target/release/charliemj-photostory.exe CharlieMJ-PhotoStory-v2-Portable.exe
           Get-Item CharlieMJ-PhotoStory-v2-Portable.exe | Select-Object Name, Length
+
+      - name: Verify exe exists
+        shell: pwsh
+        run: |
+          if (-not (Test-Path CharlieMJ-PhotoStory-v2-Portable.exe)) { throw "exe was not produced" }
 
       - name: Upload as workflow artifact
         uses: actions/upload-artifact@v4
