@@ -2,15 +2,19 @@
 
 # CharlieMJ PhotoStory **v2**
 
+<img src="./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg" width="300" alt="CharlieMJ PhotoStory" />
+
 **Offline photo-story studio for Instagram Stories, Reels & Posts.**
 Photo layouts · text · emoji · timestamps · filters · layers · templates · batch export — no account, no upload, no backend.
 
-<img src="./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg" width="300" alt="CharlieMJ PhotoStory" />
+
+
+<img src="./asset/img/CharlieMJ-PhotoStory-v2-Instagram-Story.png" width="300" alt="CharlieMJ PhotoStory" />
 
 </div>
 
 <p align="center">
-  <a href="https://github.com/awsrmmustansarjavaid/CharlieMJ-PhotoStory/releases/latest">
+  <a href="/downloads/CharlieMJ-PhotoStory-v2/CharlieMJ-PhotoStory-v2-Portable/CharlieMJ-PhotoStory-v2-Portable.exe">
     <img src="https://img.shields.io/badge/%E2%AC%87%20Download%20for%20Windows-2ea44f?style=for-the-badge" alt="Download CharlieMJ PhotoStory for Windows (portable .exe)">
   </a>
   &nbsp;
