@@ -1,6 +1,28 @@
 /* Dark Creative Studio — violet accent. Colours are variables so the light theme is just a swap. */
 :root{--bg:#20212a;--side:#2a2c38;--canvas:#15161d;--accent:#8b5cf6;--accent2:#a78bfa;--text:#f3f4f6;--text2:#a1a1b5;--line:#3a3c4d;--field:#1c1d26;--danger:#ef4444;--ui:1}
-[data-theme=light]{--bg:#eceef4;--side:#ffffff;--canvas:#dfe2ec;--text:#1f2030;--text2:#62647a;--line:#d5d8e4;--field:#f4f5fa}
+/* 2 · Clean Minimal Studio — white / soft grey, lavender accent */
+[data-theme=minimal],[data-theme=light]{--bg:#f3f4f8;--side:#ffffff;--canvas:#e6e8f0;--accent:#8b5cf6;--accent2:#7c3aed;--text:#1f2030;--text2:#62647a;--line:#dcdfea;--field:#f6f7fb}
+[data-theme=minimal] .b.primary,[data-theme=light] .b.primary{box-shadow:none}
+/* 3 · Premium Gradient Studio — deep navy, blue→purple gradients, translucent elevated panels */
+[data-theme=premium]{--bg:#0b1030;--side:#141a44;--canvas:#080c24;--accent:#7c6cf6;--accent2:#9aa8ff;--text:#eef0ff;--text2:#9ea6d6;--line:#2a3270;--field:#0f1538}
+[data-theme=premium] body{background:radial-gradient(1200px 700px at 20% -10%,#2a1b6e 0,transparent 60%),radial-gradient(900px 600px at 100% 110%,#0b4a8f 0,transparent 55%),#0b1030}
+[data-theme=premium] .side,[data-theme=premium] .topbar,[data-theme=premium] .statusbar,[data-theme=premium] .viewbar{background:color-mix(in srgb,#141a44 78%,transparent);backdrop-filter:blur(12px)}
+[data-theme=premium] .b.primary{background:linear-gradient(90deg,#6d5df6,#2f8cff)}
+[data-theme=premium] .main{background:transparent}
+[data-theme=premium] .b,[data-theme=premium] .lcard,[data-theme=premium] .layer{transition:.18s;box-shadow:0 2px 10px #0004}
+[data-theme=premium] .b:hover:not(:disabled){transform:translateY(-1px)}
+/* 4 · Compact Portable Workspace — dark, tight toolbars, max canvas (also toggle in Settings) */
+[data-theme=compact]{--bg:#20212a;--side:#2a2c38;--canvas:#15161d}
+body.compact{font-size:.93em}body.compact .b{padding:.22rem .45rem}body.compact .body{padding:.45rem}body.compact section{margin-bottom:.6rem}body.compact .brand small,body.compact .tab small{display:none}
+body.compact .grp{padding-left:.4rem}body.compact .ctl{margin:.2rem 0}
+[data-theme=premium]{--bg:#0b1030;--side:#141a45cc;--canvas:#070a22;--accent:#6366f1;--accent2:#a78bfa;--line:#2c3578;--field:#0f1538}
+[data-theme=premium] body{background:radial-gradient(1200px 700px at 10% 0%,#1e2a78 0,transparent 60%),radial-gradient(900px 600px at 100% 100%,#4c1d95 0,transparent 55%),#0b1030}
+[data-theme=premium] .side,[data-theme=premium] .topbar,[data-theme=premium] .statusbar,[data-theme=premium] .viewbar{backdrop-filter:blur(14px);box-shadow:0 4px 24px #0006}
+[data-theme=premium] .b.primary{background:linear-gradient(90deg,#6366f1,#a855f7)}
+[data-theme=premium] .b{transition:.2s}[data-theme=premium] .lcard,[data-theme=premium] .layer{backdrop-filter:blur(6px)}
+[data-theme=light] .side{box-shadow:0 0 0 1px var(--line)}[data-theme=light]{--accent:#7c6cf0;--accent2:#6d5bd0}[data-theme=light] .b{background:#fff}
+[data-theme=compact]{--bg:#1d1e26;--side:#262833;--canvas:#13141a}
+body.compact .viewbar{padding:.15rem .5rem}body.compact .b{padding:.22rem .45rem}body.compact .body{padding:.45rem}body.compact section{margin-bottom:.6rem}body.compact .ctl{margin:.2rem 0}body.compact button.tab small{display:none}body.compact .brand small{display:none}body.compact .statusbar{padding:.1rem .6rem}
 *{box-sizing:border-box}
 html{font-size:calc(14px*var(--ui))}
 body{margin:0;height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif;overflow:hidden}

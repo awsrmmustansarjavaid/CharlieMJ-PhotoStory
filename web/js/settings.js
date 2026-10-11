@@ -3,6 +3,7 @@
 (function (PS) {
   const DEFAULTS = { theme: 'dark', uiScale: 1, compact: false, exportDir: '', format: 'jpg', quality: 92, resolution: 1,
     baseName: 'CharlieMJ-Story', jpgBg: '#ffffff', safeArea: false, showGrid: true, sortMode: 'manual' };
+  PS.THEMES = { dark: 'Dark Creative Studio', light: 'Clean Minimal Studio', premium: 'Premium Gradient Studio', compact: 'Compact Portable Workspace' };
   PS.settings = Object.assign({}, DEFAULTS);
   PS.loadSettings = async function () {
     let raw = null;
@@ -17,7 +18,8 @@
   };
   PS.applySettings = function () {
     const s = PS.settings, r = document.documentElement;
-    r.dataset.theme = s.theme; r.style.setProperty('--ui', s.uiScale); document.body.classList.toggle('compact', !!s.compact);
+    if (s.theme === 'light') s.theme = 'minimal';
+    r.dataset.theme = s.theme; r.style.setProperty('--ui', s.uiScale); document.body.classList.toggle('compact', !!s.compact || s.theme === 'compact');
     PS.emit('settings');
   };
 

@@ -77,7 +77,7 @@
     const imgs = [...files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp|avif)$/i.test(f.name));
     if (!imgs.length) return PS.notify('No supported image files found.', 'warn');
     const added = []; let bad = 0;
-    for (const f of imgs) { try { added.push(await PS.addAsset(f, f.name, f.lastModified)); } catch (e) { bad++; } }
+    for (const f of imgs) { try { added.push(await PS.addAsset(f, f.name, (await PS.exifDate(f)) || f.lastModified)); } catch (e) { bad++; } }
     if (!added.length) return PS.notify('Could not read the selected image(s).', 'error');
     const rects = PS.cellRects(PS.state), cells = PS.cells(); let rest = added.map(a => a.id);
     const tgt = targetCellId && PS.getLayer(targetCellId);

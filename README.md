@@ -7,7 +7,7 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 
 <img src="./asset/img/CharlieMJ-PhotoStory-Thumbnail.jpg" width="300" alt="CharlieMJ PhotoStory" />
 
-## Download
+</div>
 
 <p align="center">
   <a href="https://github.com/awsrmmustansarjavaid/CharlieMJ-PhotoStory/releases/latest">
@@ -19,8 +19,6 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
   </a>
 </p>
 
-</div>
-
 ## Quick start
 
 - **Web / any browser:** open [`web/index.html`](web/index.html) (or the root `index.html`, which redirects there). No build step, works from `file://`.
@@ -31,7 +29,7 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 | Area | Features |
 |---|---|
 | **Layouts** | 1×1, 2×1, 3×1, 1×2, 1×3, 2×2, 3×2, 2×3, 3×3 and custom grids (rows × columns). Adjustable gap, margin, rounded corners, outline, frame colour and per-row/column panel sizes. |
-| **Photos** | Independent zoom / pan / rotate / flip / fit / fill per photo, smart auto-placement that keeps the busiest (most important) area in frame, drag-and-drop, ordering by filename / file date / manual. |
+| **Photos** | Independent zoom / pan / rotate / flip / fit / fill per photo, smart auto-placement that keeps the busiest (most important) area in frame, drag-and-drop, ordering by filename / EXIF capture date / manual. |
 | **Enhance** | Brightness, contrast, saturation, warmth, sharpness, grayscale, blur + 8 preset filters. |
 | **Text & stamps** | Multiple text boxes, fonts (and your own font files), size, colour, alignment, outline, shadow, background box. Date/time stamp with custom formats, live clock or fixed time, location and caption. |
 | **Emoji & logos** | Movable/resizable emoji (🇵🇰 🇹🇷 are drawn as vectors so they work on Windows), logo / signature image, username watermark. |
@@ -40,7 +38,7 @@ Photo layouts · text · emoji · timestamps · filters · layers · templates �
 | **Designs** | Instagram Story, Reel, Post (4:5), Square. Safe-area overlay for Story/Reel UI zones. |
 | **Export** | Rendered natively at **1080 × 1920** (or 1440 × 2560), never up-scaled. JPG (quality 50–100), PNG, WebP. Batch export with progress & success/failure counts. Folder picker + filename + status. |
 | **Projects** | Save / reopen editable `.cmjstory.json` projects, templates (9 built-in + your own), "duplicate design & clear photos", crash recovery. |
-| **Workspace** | Dark Creative Studio (violet accent) + light theme, UI scale, compact mode, keyboard shortcuts, undo/redo (100 steps), toast notifications, status bar. |
+| **Workspace** | Four interface designs — Dark Creative Studio (default, violet), Clean Minimal, Premium Gradient, Compact Portable — plus UI scale, keyboard shortcuts, undo/redo (100 steps), toast notifications, status bar. |
 
 ## Architecture (modular)
 

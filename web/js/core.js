@@ -118,6 +118,28 @@ window.PS = window.PS || {};
     }
     return sw > 0 ? { x: sx / sw / w, y: sy / sw / h } : { x: .5, y: .5 };
   }
+  /* read EXIF DateTimeOriginal from a JPEG (returns ms timestamp or null) */
+  PS.exifDate = async function (file) {
+    try {
+      const v = new DataView(await file.slice(0, 131072).arrayBuffer());
+      if (v.getUint16(0) !== 0xFFD8) return null;
+      let o = 2;
+      while (o < v.byteLength - 4) {
+        const m = v.getUint16(o), len = v.getUint16(o + 2);
+        if (m === 0xFFE1 && v.getUint32(o + 4) === 0x45786966) {            // "Exif"
+          const t = o + 10, le = v.getUint16(t) === 0x4949, g16 = a => v.getUint16(a, le), g32 = a => v.getUint32(a, le);
+          const str = (a, n) => { let r = ''; for (let i = 0; i < n - 1; i++) r += String.fromCharCode(v.getUint8(a + i)); return r; };
+          const find = (ifd, tag) => { const n = g16(t + ifd); for (let i = 0; i < n; i++) { const e = t + ifd + 2 + i * 12; if (g16(e) === tag) return e; } return null; };
+          const ptr = find(g32(t + 4), 0x8769); if (ptr === null) return null;
+          const ent = find(g32(ptr + 8), 0x9003) ; if (ent === null) return null;
+          const d = str(t + g32(ent + 8), g32(ent + 4)).match(/(\d+):(\d+):(\d+) (\d+):(\d+):(\d+)/);
+          return d ? new Date(+d[1], d[2] - 1, +d[3], +d[4], +d[5], +d[6]).getTime() : null;
+        }
+        if ((m & 0xFF00) !== 0xFF00) return null; o += 2 + len;
+      }
+    } catch (e) {}
+    return null;
+  };
   PS.addAsset = async function (blob, name, date, kind, id) {
     const { url, img } = await PS.loadImage(blob);
     const a = { id: id || PS.uid(), name: name || 'image', date: date || Date.now(), blob, url, img,

@@ -13,4 +13,6 @@
 **Designs** Story, Reel (9:16, 1080×1920), Post (4:5, 1080×1350), Square (1080×1080); safe-area overlay.
 **Export** native-resolution rendering at 1× (1080 wide) or 1.333× (1440 wide); JPG/PNG/WebP; quality slider; JPG backdrop colour; file-name prefix with timestamp; folder picker; batch export.
 **Projects** save/open `.cmjstory.json` (images embedded), templates (built-in + saved), duplicate design, crash recovery.
-**Interface** dark/light theme, UI scale, compact mode, shortcuts, toasts, status bar, undo/redo.
+**Interface** four interface designs (Dark Creative Studio, Clean Minimal, Premium Gradient, Compact Portable), UI scale, shortcuts, toasts, status bar, undo/redo.
+
+**Four interface designs** Dark Creative Studio (default), Clean Minimal Studio, Premium Gradient Studio, Compact Portable Workspace.

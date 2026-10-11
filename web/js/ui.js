@@ -44,7 +44,7 @@
           h('button', { onclick: () => PS.removeAsset(id) }, '✕')),
         h('small', {}, a.name))); });
     const sortSel = h('select', { onchange: e => { PS.settings.sortMode = e.target.value; PS.saveSettings(); if (e.target.value !== 'manual') PS.photoOrder = PS.sortedPhotoIds(e.target.value); redraw(); PS.notify('Photos sorted by ' + e.target.value, 'info'); } },
-      [['manual', 'Manual order'], ['name', 'Filename'], ['date', 'Capture/file date']].map(([v, t]) => h('option', { value: v, selected: PS.settings.sortMode === v }, t)));
+      [['manual', 'Manual order'], ['name', 'Filename'], ['date', 'Capture date (EXIF)']].map(([v, t]) => h('option', { value: v, selected: PS.settings.sortMode === v }, t)));
     return [sec('Photo library', rowb(btn('＋ Add photos', () => { PS.pendingCell = null; $('fileInput').click(); }, 'primary')),
       h('p', { class: 'hint' }, 'Drop files onto the canvas, or click an empty slot. New photos fill empty slots automatically, keeping the important area in view.'),
       h('label', { class: 'ctl' }, h('span', {}, 'Order'), sortSel),
@@ -225,7 +225,7 @@
   function settingsDialog() {
     const S = PS.settings, d = $('dlg'), keys = [['Ctrl+Z / Ctrl+Y', 'Undo / Redo'], ['Ctrl+S', 'Save project'], ['Ctrl+O', 'Open project'], ['Ctrl+E', 'Export'], ['Ctrl+D', 'Duplicate layer'], ['Delete', 'Delete layer / remove photo'], ['Arrows (Shift = ×10)', 'Nudge'], ['+ / −', 'Zoom selected photo'], ['Mouse wheel', 'Zoom photo / resize object'], ['Esc', 'Deselect']];
     d.replaceChildren(h('h2', {}, '⚙ Settings'),
-      select('Theme', S, 'theme', [['dark', 'Dark Creative Studio'], ['light', 'Light']], () => { PS.applySettings(); PS.saveSettings(); }),
+      select('Interface design', S, 'theme', [['dark', 'Dark Creative Studio (default)'], ['minimal', 'Clean Minimal Studio'], ['premium', 'Premium Gradient Studio'], ['compact', 'Compact Portable Workspace']], () => { PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); }),
       slider('Interface scale', S, 'uiScale', 0.8, 1.4, 0.05, { fmt: v => Math.round(v * 100) + '%', after: () => { PS.applySettings(); PS.layoutCanvas(); } }),
       check('Compact workspace (smaller panels)', S, 'compact', () => { PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); }),
       h('p', { class: 'folder' }, 'Default export folder: ' + (S.exportDir || 'browser Downloads')), rowb(btn('Choose…', async () => { await PS.chooseFolder(); settingsDialog(); })),
@@ -243,7 +243,7 @@
     $('btnNew').onclick = PS.newProject; $('btnOpen').onclick = () => $('projectInput').click(); $('btnSave').onclick = PS.saveProject;
     $('undoBtn').onclick = PS.undo; $('redoBtn').onclick = PS.redo; $('btnResetLayout').onclick = PS.resetLayout; $('btnResetPhoto').onclick = () => { const c = PS.selected(); if (c && c.type === 'cell') PS.resetPhoto(c); else PS.notify('Select a photo first.', 'info'); };
     $('btnExport').onclick = PS.exportCurrent; $('btnSettings').onclick = settingsDialog;
-    $('btnTheme').onclick = () => { PS.settings.theme = PS.settings.theme === 'dark' ? 'light' : 'dark'; PS.applySettings(); PS.saveSettings(); };
+    $('btnTheme').onclick = () => { const T = ['dark', 'minimal', 'premium', 'compact'], n = T[(T.indexOf(PS.settings.theme) + 1) % 4]; PS.settings.theme = n; PS.applySettings(); PS.saveSettings(); PS.layoutCanvas(); PS.notify('Design: ' + n, 'info'); };
     const ds = $('designSel'); ds.replaceChildren(...Object.entries(PS.DESIGNS).map(([k, d]) => h('option', { value: k }, d.name)));
     ds.onchange = () => { PS.state.design = ds.value; PS.commit('design'); PS.layoutCanvas(); PS.notify('Design: ' + PS.DESIGNS[ds.value].name, 'info'); renderRight(); };
     PS.on('committed', () => { ds.value = PS.state.design; });
